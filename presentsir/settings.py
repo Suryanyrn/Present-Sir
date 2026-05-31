@@ -114,30 +114,12 @@ WSGI_APPLICATION = 'presentsir.wsgi.application'
 import os
 import sys
 
-# Database Configuration
-# In cloud databases like Neon, the DB user lacks permission to create/drop databases dynamically.
-# We dynamically fallback to SQLite when running the test suite to bypass this restriction.
-if 'test' in sys.argv:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
-else:
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.postgresql",
-            "NAME": os.getenv("DB_NAME"),
-            "USER": os.getenv("DB_USER"),
-            "PASSWORD": os.getenv("DB_PASSWORD"),
-            "HOST": os.getenv("DB_HOST"),
-            "PORT": os.getenv("DB_PORT", "5432"),
-            "OPTIONS": {
-                "sslmode": "require",
-            },
-        }
-    }
+}
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
