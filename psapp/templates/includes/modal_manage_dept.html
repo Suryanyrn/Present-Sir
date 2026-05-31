@@ -44,8 +44,7 @@
             <div class="bg-slate-900/50 p-6 rounded-xl border border-slate-700">
               <h4 class="text-lg font-bold text-blue-400 mb-6 flex items-center gap-2"><i data-lucide="info"></i> Step 1: Class Details</h4>
 
-              <input type="hidden" id="sys-academic-year" value="2025" />
-
+              <input type="hidden" id="sys-academic-year" value="{% now 'Y' %}" />
               <div class="space-y-4">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div class="space-y-2">
