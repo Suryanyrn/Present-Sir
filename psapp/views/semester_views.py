@@ -24,7 +24,7 @@ def send_delete_otp_api(request):
                 send_mail(
                     "Confirm Deletion - Present Sir",
                     f"Your OTP to authorize deletion is: {otp}\n\nThis action cannot be undone.",
-                    "askabhitechnology@gmail.com",
+                    "presentsirtechnologies@gmail.com",
                     [college.admin_email],
                     fail_silently=False
                 )
@@ -128,7 +128,7 @@ def send_action_otp_api(request):
                 send_mail(
                     f"Action Authorization - {action_type.upper()}",
                     f"Your OTP to authorize {action_type} deletion/termination is: {otp}",
-                    "askabhitechnology@gmail.com",
+                    "presentsirtechnologies@gmail.com",
                     [college.admin_email],
                     fail_silently=False
                 )
@@ -239,7 +239,7 @@ def verify_action_and_execute_api(request):
                 send_mail(
                     f"Termination Notice - {college_name}",
                     f"Dear {faculty.name},\n\nYou have been removed from the faculty list of {college_name}.\nAccess to college data is revoked.\n\nRegards,\nAdmin",
-                    "askabhitechnology@gmail.com",
+                    "presentsirtechnologies@gmail.com",
                     [faculty.college_email],
                     fail_silently=True
                 )
@@ -321,7 +321,7 @@ def send_add_dept_otp_api(request):
                 send_mail(
                     "Verify Department Creation - Present Sir",
                     f"Your OTP to add a new department is: {otp}",
-                    "askabhitechnology@gmail.com",
+                    "presentsirtechnologies@gmail.com",
                     [college.admin_email],
                     fail_silently=False
                 )
@@ -384,7 +384,7 @@ def send_start_sem_otp(request):
                 send_mail(
                     "Authorize Semester Start - Present Sir",
                     f"OTP to START Semester {new_sem} for this class: {otp}",
-                    "askabhitechnology@gmail.com",
+                    "presentsirtechnologies@gmail.com",
                     [admin_email],
                     fail_silently=False
                 )
@@ -466,7 +466,7 @@ def send_end_sem_otp(request):
                 send_mail(
                     "Authorize End Semester - Present Sir",
                     f"OTP to END Semester {ac_class.current_semester}: {otp}\n\nWARNING: This will archive all active courses.",
-                    "askabhitechnology@gmail.com",
+                    "presentsirtechnologies@gmail.com",
                     [admin_email],
                     fail_silently=False
                 )

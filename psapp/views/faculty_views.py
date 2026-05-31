@@ -748,7 +748,7 @@ def send_warning_emails_api(request):
                     send_mail(
                         f"Warning: {d['subject']}",
                         f"Dear {d['name']}, your attendance is {d['percentage']}%. Please attend classes.\nRegards, {faculty.name}",
-                        "askabhitechnology@gmail.com",
+                        "presentsirtechnologies@gmail.com",
                         [d['email']],
                         fail_silently=True
                     )

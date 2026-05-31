@@ -32,7 +32,7 @@ def send_resign_otp(request):
                 send_mail(
                     "Confirm Resignation - Present Sir",
                     f"Your OTP to leave your current college is: {otp}\n\nThis will remove your access to all classes immediately.",
-                    "askabhitechnology@gmail.com",
+                    "presentsirtechnologies@gmail.com",
                     [faculty.college_email],
                     fail_silently=False
                 )

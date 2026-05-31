@@ -138,7 +138,7 @@ def terminate_faculty_api(request):
             send_mail(
                 f"Termination Notice - {college_name}",
                 f"Dear {faculty.name},\n\nYou have been removed from the faculty list of {college_name}.\nAccess to college data is revoked.\n\nRegards,\nAdmin",
-                "askabhitechnology@gmail.com",
+                "presentsirtechnologies@gmail.com",
                 [faculty.college_email],
                 fail_silently=True
             )

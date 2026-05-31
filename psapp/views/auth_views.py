@@ -111,7 +111,7 @@ def send_otp(request):
                     send_mail(
                         "Present Sir!!! - OTP Verification",
                         f"Your OTP is: {otp}\n\nThis OTP will expire in 10 minutes.",
-                        "askabhitechnology@gmail.com",
+                        "presentsirtechnologies@gmail.com",
                         [email],
                         fail_silently=False
                     )
@@ -283,7 +283,7 @@ def forgot_send_otp(request):
     
     def send_forgot_email_bg():
         try:
-            send_mail("Password Reset", f"OTP: {otp}", "askabhitechnology@gmail.com", [email])
+            send_mail("Password Reset", f"OTP: {otp}", "presentsirtechnologies@gmail.com", [email])
         except Exception as e:
             logger.exception(f"Failed to send password reset email to {email}: {str(e)}")
 
