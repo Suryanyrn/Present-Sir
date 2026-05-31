@@ -1,0 +1,14 @@
+<div id="modal-add-single-student" class="fixed inset-0 bg-slate-900/90 backdrop-blur-sm hidden items-center justify-center z-[90]">
+  <div class="bg-slate-800 w-full max-w-sm p-6 rounded-2xl border border-slate-700 shadow-2xl">
+    <h3 class="text-xl font-bold text-white mb-4">Add New Student</h3>
+    <div class="space-y-3">
+      <input type="text" id="new-stu-reg" class="w-full bg-slate-900 border border-slate-600 rounded p-2 text-white" placeholder="Register Number" />
+      <input type="text" id="new-stu-name" class="w-full bg-slate-900 border border-slate-600 rounded p-2 text-white" placeholder="Full Name" />
+      <input type="email" id="new-stu-email" class="w-full bg-slate-900 border border-slate-600 rounded p-2 text-white" placeholder="Email (Optional)" />
+      <div class="flex gap-2 pt-2">
+        <button onclick="document.getElementById('modal-add-single-student').classList.add('hidden')" class="flex-1 py-2 bg-slate-700 text-slate-300 rounded hover:bg-slate-600">Cancel</button>
+        <button onclick="classMgr.addSingleStudent()" class="flex-1 py-2 bg-teal-600 text-white rounded hover:bg-teal-500 font-bold">Add</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,98 @@
+<section id="view-students" class="space-y-8 hidden animate-fade-in">
+        <div class="flex justify-between items-end border-b border-slate-800 pb-6">
+          <div>
+            <h2 class="text-3xl font-bold text-white">Students Directory</h2>
+            <p class="text-slate-400 mt-2">Manage profiles and view detailed reports.</p>
+          </div>
+          <div class="flex gap-2">
+            <button onclick="modals.openDeletedHistoryModal()" class="bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 px-4 py-2 rounded-xl font-bold text-sm">Deleted History</button>
+          </div>
+        </div>
+
+        <div class="max-w-4xl mx-auto mb-8">
+          <div class="flex gap-3">
+            <div class="relative flex-1">
+              <i data-lucide="search" class="absolute left-3 top-3 w-5 h-5 text-slate-500"></i>
+              <input id="student-search-reg" placeholder="Quick Search by Reg No..." class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 pl-10 text-white outline-none focus:border-teal-500" />
+            </div>
+            <button onclick="studentMgr.searchByReg()" class="bg-teal-600 hover:bg-teal-500 text-white px-6 py-2 rounded-xl font-bold shadow-lg shadow-teal-900/20">Search</button>
+          </div>
+          <div id="student-search-results" class="mt-2 empty:hidden"></div>
+        </div>
+
+        <div class="bg-slate-900/50 border border-slate-800 rounded-2xl p-6">
+          <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2"><i data-lucide="filter" class="text-teal-400"></i> Filter Class Data</h3>
+
+          <div class="grid grid-cols-1 md:grid-cols-5 gap-4 mb-6">
+            <div>
+              <label class="text-xs text-slate-500 uppercase font-bold ml-1 block mb-1">1. Department</label>
+              <select id="filter-dept-select" onchange="studentMgr.handleDeptChange()" class="w-full bg-slate-800 border border-slate-600 text-white rounded-lg p-3 outline-none focus:border-teal-500 cursor-pointer">
+                <option value="">-- Select Dept --</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="text-xs text-slate-500 uppercase font-bold ml-1 block mb-1">2. Year</label>
+              <select id="filter-year-select" onchange="studentMgr.handleYearChange()" class="w-full bg-slate-800 border border-slate-600 text-white rounded-lg p-3 outline-none focus:border-teal-500 cursor-pointer disabled:opacity-50" disabled>
+                <option value="">-- Select Year --</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="text-xs text-slate-500 uppercase font-bold ml-1 block mb-1">3. Section</label>
+              <select id="filter-section-select" onchange="studentMgr.handleSectionChange()" class="w-full bg-slate-800 border border-slate-600 text-white rounded-lg p-3 outline-none focus:border-teal-500 cursor-pointer disabled:opacity-50" disabled>
+                <option value="">-- Select Section --</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="text-xs text-slate-500 uppercase font-bold ml-1 block mb-1">Performance</label>
+              <select id="filter-criteria-select" onchange="studentMgr.applyFilter()" class="w-full bg-slate-800 border border-slate-600 text-white rounded-lg p-3 outline-none focus:border-teal-500 cursor-pointer disabled:opacity-50" disabled>
+                <option value="all">Show All</option>
+                <option value="defaulters">Defaulters (<75%)</option>
+                <option value="safe">Safe Zone (>75%)</option>
+                <option value="high_od">High OD (>10 hrs)</option>
+                <option value="top_10">Top 10 Rankers</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="text-xs text-slate-500 uppercase font-bold ml-1 block mb-1">Absent Streak</label>
+              <select id="filter-absent-select" onchange="studentMgr.applyFilter()" class="w-full bg-slate-800 border border-slate-600 text-white rounded-lg p-3 outline-none focus:border-teal-500 cursor-pointer disabled:opacity-50" disabled>
+                <option value="ignore">-- Ignore --</option>
+                <option value="1_day">Last 1 Day Absent</option>
+                <option value="2_days">Last 2 Days Absent</option>
+                <option value="more_2">More than 2 Days</option>
+                <option value="more_7">More than 1 Week (>7)</option>
+                <option value="more_30">More than 1 Month (>30)</option>
+              </select>
+            </div>
+          </div>
+
+          <div id="student-filter-table-container" class="hidden">
+            <div class="overflow-x-auto rounded-xl border border-slate-700">
+              <table class="w-full text-left text-sm">
+                <thead class="bg-slate-950 text-slate-400 uppercase font-bold text-xs">
+                  <tr>
+                    <th class="p-4 pl-6">Reg No</th>
+                    <th class="p-4">Name</th>
+                    <th class="p-4 text-center text-green-400">Present</th>
+                    <th class="p-4 text-center text-blue-400">OD</th>
+                    <th class="p-4 text-center text-red-400">Absent</th>
+                    <th class="p-4 text-center">Total</th>
+                    <th class="p-4 text-right pr-6">Attendance %</th>
+                  </tr>
+                </thead>
+                <tbody id="student-filter-tbody" class="divide-y divide-slate-800 bg-slate-900/30 text-slate-300"></tbody>
+              </table>
+            </div>
+            <div id="filter-count-display" class="text-right text-xs text-slate-500 mt-2 px-2"></div>
+          </div>
+
+          <div id="student-filter-loading" class="hidden text-center py-10 text-slate-500">Loading data...</div>
+
+          <div id="student-filter-empty" class="hidden text-center py-10 text-slate-500">
+            <p>Select Department, Year, and Section to view data.</p>
+          </div>
+        </div>
+      </section>

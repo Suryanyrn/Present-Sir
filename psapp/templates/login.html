@@ -1,0 +1,181 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Present Sir!!! - Faculty Access</title>
+    <link rel="stylesheet" href="{% static 'psapp/css/style.css' %}" />
+    <!-- Load Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Use Inter and the new unique cursive font (Great Vibes) for the title -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Great+Vibes&display=swap" rel="stylesheet" />
+  </head>
+  <body class="flex flex-col items-center justify-center p-4 animated-background">
+    <input type="hidden" id="csrf-token" value="{{ csrf_token }}" />
+    <!-- Auth Card: Reduced max-width to max-w-md -->
+    <div class="w-full max-w-md bg-slate-900/90 backdrop-blur-md rounded-2xl card-shadow p-8 space-y-8 relative mb-8">
+      <!-- Header -->
+      <header class="text-center">
+        <!--                            Title element with new cursive font (Great Vibes) 
+                 Removed 'tracking-tighter' to fix cursive spacing issues                            -->
+        <h1 id="app-title" class="text-6xl font-normal text-white mb-2 font-['Great_Vibes']" style="text-shadow: 0 0 15px rgba(32, 201, 151, 0.6);"><!-- Content set by JavaScript --></h1>
+        <p class="text-teal-400 text-xl font-medium">Faculty Access Portal</p>
+      </header>
+
+      <!-- Status Message Box (For errors/success) -->
+      <div id="status-message" class="hidden p-3 rounded-lg text-sm text-center opacity-0"></div>
+
+      <!-- Toggle Switch -->
+      <div class="flex bg-slate-800/50 p-1 rounded-xl">
+        <button id="login-tab" onclick="showForm('login')" class="flex-1 py-3 text-sm font-semibold rounded-lg transition duration-300 text-white bg-blue-600 shadow-md">Sign In</button>
+        <button id="register-tab" onclick="showForm('register')" class="flex-1 py-3 text-sm font-semibold rounded-lg transition duration-300 text-slate-300 hover:text-white hover:bg-slate-700">New Faculty</button>
+      </div>
+
+      <!-- Form Wrapper: Removed fixed min-height to ensure mobile responsiveness and fix overflow -->
+      <div class="relative">
+        <!-- Login Form (Initial State) -->
+        <form id="login-form" class="form-container fade-in space-y-6" onsubmit="handleLogin(event)">
+          {% csrf_token %}
+          <div class="space-y-2">
+            <label for="login-email" class="block text-sm font-medium text-slate-300">Email Address</label>
+            <input type="email" id="login-email" name="email" required class="w-full px-4 py-3 bg-slate-700 text-white border border-slate-700 rounded-lg input-glow" placeholder="faculty@college.edu" />
+          </div>
+
+          <div class="space-y-2">
+            <label for="login-password" class="block text-sm font-medium text-slate-300">Password</label>
+            <input type="password" id="login-password" name="password" required class="w-full px-4 py-3 bg-slate-700 text-white border border-slate-700 rounded-lg input-glow" placeholder="••••••••" />
+          </div>
+
+          <div class="flex items-center justify-between">
+            <div class="flex items-center">
+              <input id="remember-me" name="remember-me" type="checkbox" class="h-4 w-4 text-blue-500 rounded border-slate-600 focus:ring-blue-500 bg-slate-700" />
+              <label for="remember-me" class="ml-2 block text-sm text-slate-400">Remember me</label>
+            </div>
+            <!-- Link to Forgot Password Form -->
+            <button type="button" onclick="showForm('forgot')" class="text-sm font-medium text-teal-400 hover:text-teal-300 transition duration-150">Forgot Password?</button>
+          </div>
+
+          <button type="submit" id="login-btn" class="w-full py-3 btn-primary btn-login bg-blue-600 text-white font-bold rounded-lg text-lg shadow-xl">Sign In</button>
+        </form>
+
+        <!-- Registration Form (Hidden Initially) -->
+        <form id="register-form" class="form-container fade-out space-y-6" onsubmit="handleRegister(event)">
+          {% csrf_token %}
+          <!-- NEW: College Name -->
+          <div class="space-y-2">
+            <label for="register-college" class="block text-sm font-medium text-slate-300">College Name</label>
+            <input type="text" id="register-college" name="college_name" required class="w-full px-4 py-3 bg-slate-700 text-white border border-slate-700 rounded-lg input-glow" placeholder="XYZ Institute of Technology" />
+          </div>
+
+          <!-- Name with live feedback -->
+          <div class="space-y-2">
+            <label for="register-name" class="block text-sm font-medium text-slate-300">Full Name</label>
+            <input type="text" id="register-name" name="name" required oninput="checkNameValidity()" class="w-full px-4 py-3 bg-slate-700 text-white border border-slate-700 rounded-lg input-glow" placeholder="Dr. Jane Doe" />
+            <p id="name-feedback" class="text-xs pt-1 text-red-400"></p>
+          </div>
+
+          <div class="space-y-2">
+            <label class="block text-sm font-medium text-slate-300">Department</label>
+            <input type="text" id="register-department" name="department" required class="w-full px-4 py-3 bg-slate-700 text-white border border-slate-700 rounded-lg input-glow" placeholder="Computer Science" />
+          </div>
+
+          <div class="space-y-2">
+            <label for="register-designation" class="block text-sm font-medium text-slate-300">Designation</label>
+            <input type="text" id="register-designation" name="designation" required class="w-full px-4 py-3 bg-slate-700 text-white border border-slate-700 rounded-lg input-glow" placeholder="Assistant Professor, Dept. of CS" />
+          </div>
+
+          <div class="space-y-2">
+            <label for="register-email" class="block text-sm font-medium text-slate-300">College Email</label>
+            <input type="email" id="register-email" name="college_email" required class="w-full px-4 py-3 bg-slate-700 text-white border border-slate-700 rounded-lg input-glow" placeholder="jane.doe@univ.edu" />
+          </div>
+          <div id="otp-status" class="text-sm font-medium hidden"></div>
+          <button type="button" onclick="sendOTP()" id="send-otp-btn" class="px-3 py-2 bg-blue-600 text-white rounded-lg shadow-lg">Send OTP</button>
+
+          <!-- Hidden OTP Verify box -->
+          <div id="otp-section" class="space-y-2 hidden">
+            <label class="block text-sm font-medium text-slate-300">Enter OTP</label>
+            <input type="text" id="otp-input" class="w-full px-4 py-3 bg-slate-700 text-white border border-slate-700 rounded-lg input-glow" placeholder="6-digit OTP" />
+            <p id="masked-email" class="text-slate-400 text-sm hidden"></p>
+            <button type="button" onclick="handleOTPVerify()" class="w-full py-2 bg-blue-600 text-white font-bold rounded-lg shadow-lg">Verify OTP</button>
+            <div id="otp-success" class="hidden flex justify-center my-2"></div>
+          </div>
+
+          <div class="space-y-2">
+            <label for="register-mobile" class="block text-sm font-medium text-slate-300">Mobile Number</label>
+            <input type="tel" id="register-mobile" name="mobile_num" required class="w-full px-4 py-3 bg-slate-700 text-white border border-slate-700 rounded-lg input-glow" placeholder="+91 99999 99999" />
+          </div>
+
+          <!-- Password fields with live feedback elements: Added grid-cols-1 for mobile responsiveness -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="space-y-2">
+              <label for="register-password" class="block text-sm font-medium text-slate-300">New Password</label>
+              <input type="password" id="register-password" name="password" required oninput="checkPasswordValidity()" class="w-full px-4 py-3 bg-slate-700 text-white border border-slate-700 rounded-lg input-glow" placeholder="Min 8 chars" />
+            </div>
+            <div class="space-y-2">
+              <label for="register-confirm-password" class="block text-sm font-medium text-slate-300">Confirm Password</label>
+              <input type="password" id="register-confirm-password" name="confirm-password" required oninput="checkPasswordValidity()" class="w-full px-4 py-3 bg-slate-700 text-white border border-slate-700 rounded-lg input-glow" placeholder="Repeat password" />
+            </div>
+          </div>
+
+          <!-- Password validation feedback below the grid -->
+          <div id="password-feedback" class="text-xs pt-1 space-y-1 text-slate-400">
+            <p id="feedback-length" class="text-red-400">❌ Min 8 characters</p>
+            <p id="feedback-letter" class="text-red-400">❌ Contains letters (a-z, A-Z)</p>
+            <p id="feedback-digit" class="text-red-400">❌ Contains a number (0-9)</p>
+            <p id="feedback-special" class="text-red-400">❌ Contains a special character</p>
+            <p id="feedback-match" class="text-red-400 hidden">❌ Passwords match</p>
+          </div>
+
+          <!-- Button: Alignment corrected by ensuring consistent spacing above -->
+          <button type="submit" id="register-btn" disabled class="w-full py-3 btn-primary btn-register bg-teal-500 text-white font-bold rounded-lg text-lg shadow-xl mt-4">Create Account</button>
+        </form>
+
+        <!-- Forgot Password Form -->
+        <form id="forgot-form" class="form-container fade-out space-y-6" onsubmit="event.preventDefault(); fpSendOTP();">
+          {% csrf_token %}
+          <p class="text-sm text-slate-400">Enter your registered email to reset your password.</p>
+          <div class="space-y-2">
+            <label class="text-sm text-slate-300">Email Address</label>
+            <input type="email" id="forgot-email" name="email" required class="w-full px-4 py-3 bg-slate-700 text-white rounded-lg input-glow" placeholder="faculty@college.edu" />
+          </div>
+          <button type="submit" id="forgot-btn" class="w-full py-3 bg-amber-500 text-white font-bold rounded-lg">Send OTP</button>
+
+          <!-- OTP Section -->
+          <div id="fp-otp-section" class="hidden mt-4">
+            <label class="text-sm text-slate-300">Enter OTP</label>
+            <input id="fp-otp" class="input-glow w-full px-4 py-3 bg-slate-700 text-white rounded-lg" placeholder="6-digit OTP" />
+            <button type="button" onclick="fpVerifyOTP()" class="w-full py-2 bg-blue-600 text-white rounded-lg mt-2">Verify OTP</button>
+            <p id="fp-status" class="text-sm mt-2 hidden"></p>
+          </div>
+          <!-- New Password Section -->
+          <div id="fp-newpass-section" class="hidden mt-4 space-y-3">
+            <div>
+              <label class="text-sm text-slate-300">New Password</label>
+              <input id="fp-password" type="password" oninput="checkResetPasswordValidity()" class="input-glow w-full px-4 py-3 bg-slate-700 text-white rounded-lg border border-slate-600" placeholder="New password" />
+            </div>
+
+            <div>
+              <label class="text-sm text-slate-300">Confirm Password</label>
+              <input id="fp-confirm-password" type="password" oninput="checkResetPasswordValidity()" class="input-glow w-full px-4 py-3 bg-slate-700 text-white rounded-lg border border-slate-600" placeholder="Repeat new password" />
+            </div>
+
+            <div id="fp-password-feedback" class="text-xs pt-1 space-y-1 text-slate-400">
+              <p id="fp-feedback-length" class="text-red-400">❌ Min 8 characters</p>
+              <p id="fp-feedback-letter" class="text-red-400">❌ Contains letters (a-z, A-Z)</p>
+              <p id="fp-feedback-digit" class="text-red-400">❌ Contains a number (0-9)</p>
+              <p id="fp-feedback-special" class="text-red-400">❌ Contains a special character</p>
+              <p id="fp-feedback-match" class="text-red-400 hidden">❌ Passwords match</p>
+            </div>
+
+            <button type="button" onclick="fpResetPassword()" class="w-full py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg mt-2 font-semibold transition">Reset Password</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Footer -->
+      <p class="text-center text-sm text-slate-500 mt-6">Optimized for ease and efficiency.</p>
+    </div>
+    <script src="{% static 'psapp/js/auth.js' %}?v=1"></script>
+  </body>
+</html>

@@ -1,0 +1,77 @@
+:root {
+  --primary-color: #20c997;
+  --bg-dark: #0a0a0a;
+  --card-bg: #1a1a1a;
+  --absent-color: #ef4444;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg-dark);
+  min-height: 100vh;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 1024px) {
+  .dashboard-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.custom-scroll::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scroll::-webkit-scrollbar-thumb {
+  background-color: #333;
+  border-radius: 4px;
+}
+
+.custom-scroll::-webkit-scrollbar-track {
+  background: #111;
+}
+
+.class-card:hover {
+  box-shadow: 0 0 10px rgba(32, 201, 151, 0.4);
+  transform: translateY(-2px);
+  transition: all 0.3s ease;
+}
+
+.form-modal {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.input-glow:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(32, 201, 151, 0.1);
+}
+
+.status-present {
+  color: #10b981;
+}
+
+.status-absent {
+  color: #ef4444;
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

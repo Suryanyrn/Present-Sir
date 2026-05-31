@@ -1,0 +1,12 @@
+<section id="view-departments" class="space-y-8 animate-fade-in">
+        <div class="flex justify-between items-end border-b border-slate-800 pb-6">
+          <div>
+            <h2 class="text-3xl font-bold text-white">Academic Departments</h2>
+            <p class="text-slate-400 mt-2">Manage structure, add classes, and assign resources.</p>
+          </div>
+          <button onclick="modals.openAddDept()" class="bg-teal-600 hover:bg-teal-500 text-white px-5 py-2.5 rounded-xl font-bold flex items-center gap-2 shadow-lg shadow-teal-900/20 transition hover:-translate-y-0.5"><i data-lucide="plus" class="w-5 h-5"></i> Add Department</button>
+        </div>
+        <div id="dept-grid" class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div class="col-span-full py-20 text-center text-slate-500">Loading departments...</div>
+        </div>
+      </section>

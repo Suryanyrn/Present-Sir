@@ -1,0 +1,39 @@
+{% load static %}
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+{% csrf_token %}
+<meta name="csrf-token" content="{{ csrf_token }}" />
+<title>Present Sir!!! - Dashboard</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  window.djangoUrls = {
+    dashboardData: "{% url 'psapp:get_dashboard_data' %}",
+    createClass: "{% url 'psapp:create_class_api' %}",
+    saveAttendance: "{% url 'psapp:save_attendance_api' %}",
+    updateAttendance: "{% url 'psapp:update_attendance' %}",
+    exportCsv: "{% url 'psapp:export_attendance_csv' 0 %}",
+    editProfile: "{% url 'psapp:edit_profile_api' %}",
+    deleteClass: "{% url 'psapp:delete_class_api' 0 %}",
+    editStudent: "{% url 'psapp:edit_student_api' %}",
+    copyClass: "{% url 'psapp:copy_class_api' %}",
+    getStudentStats: "{% url 'psapp:get_student_stats_api' 0 %}",
+    getDefaulters: "{% url 'psapp:get_defaulters_list' 0 %}",
+    leaderboard: "{% url 'psapp:get_leaderboard' 0 %}",
+    sendWarnings: "{% url 'psapp:send_warning_emails' %}",
+    getRequests: "{% url 'psapp:get_faculty_requests' %}",
+    respondRequest: "{% url 'psapp:respond_faculty_request' %}",
+    getNotifications: "{% url 'psapp:get_faculty_notifs' %}",
+    markNotifRead: "{% url 'psapp:get_faculty_notifs' %}"
+  }
+  
+  window.currentUser = {
+    name: '{{ faculty.name }}',
+    id: '{{ faculty.id }}'
+  }
+</script>
+
+<link rel="stylesheet" href="{% static 'psapp/css/dashboard.css' %}" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Great+Vibes&display=swap" rel="stylesheet" />
+<script src="https://unpkg.com/lucide@latest"></script>

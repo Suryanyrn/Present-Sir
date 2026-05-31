@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% include 'includes/faculty_includes/dashboard_head.html' %}
+  </head>
+  <body class="text-white bg-slate-950 font-inter">
+    {% include 'includes/faculty_includes/dashboard_header.html' %}
+    <main class="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
+      {% include 'includes/faculty_includes/dashboard_status_loading.html' %}
+      {% include 'includes/faculty_includes/section_my_classes.html' %}
+      {% include 'includes/faculty_includes/section_class_detail.html' %}
+      {% include 'includes/faculty_includes/section_menu.html' %}
+    </main>
+
+    <!-- All Modals -->
+    {% include 'includes/faculty_includes/modal_create_class.html' %}
+    {% include 'includes/faculty_includes/modal_add_students.html' %}
+    {% include 'includes/faculty_includes/modal_take_attendance.html' %}
+    {% include 'includes/faculty_includes/modal_edit_profile.html' %}
+    {% include 'includes/faculty_includes/modal_manage_students.html' %}
+    {% include 'includes/faculty_includes/modal_duplicate_class.html' %}
+    {% include 'includes/faculty_includes/modal_student_profile.html' %}
+    {% include 'includes/faculty_includes/modal_edit_student.html' %}
+    {% include 'includes/faculty_includes/modal_cold_call.html' %}
+    {% include 'includes/faculty_includes/modal_leaderboard.html' %}
+    {% include 'includes/faculty_includes/modal_defaulters.html' %}
+    {% include 'includes/faculty_includes/modal_download_report.html' %}
+    {% include 'includes/faculty_includes/modal_metrics.html' %}
+    {% include 'includes/faculty_includes/modal_resign_otp.html' %}
+
+    <!-- Mobile Navigation & Scripts -->
+    {% include 'includes/faculty_includes/mobile_bottom_nav.html' %}
+    {% include 'includes/faculty_includes/dashboard_scripts.html' %}
+  </body>
+</html>

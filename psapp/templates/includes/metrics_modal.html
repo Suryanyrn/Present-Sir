@@ -1,0 +1,64 @@
+<div id="metrics-modal" class="fixed inset-0 bg-slate-900/95 backdrop-blur-md hidden items-center justify-center p-4 z-[100]">
+      <div class="bg-slate-800 rounded-2xl shadow-2xl w-full max-w-6xl max-h-[90vh] flex flex-col border border-slate-700 relative overflow-hidden">
+        <div class="p-6 border-b border-slate-700 flex justify-between items-center bg-slate-800 shrink-0">
+          <div>
+            <h2 class="text-2xl font-bold text-white flex items-center gap-2">
+              <i data-lucide="bar-chart-2" class="text-teal-400"></i>
+              <span id="analytics-modal-title">Analytics</span>
+              <p id="analytics-faculty-name" class="text-teal-400 font-bold"></p>
+            </h2>
+            <p class="text-slate-400 text-sm mt-1" id="analytics-modal-subtitle">Overview</p>
+          </div>
+          <button onclick="document.getElementById('metrics-modal').classList.add('hidden')" class="p-2 bg-slate-700 hover:bg-slate-600 text-slate-400 hover:text-white rounded-lg transition"><i data-lucide="x"></i></button>
+        </div>
+
+        <div class="flex-1 overflow-y-auto custom-scroll p-6 space-y-6">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="bg-slate-900/50 p-5 rounded-xl border border-slate-700">
+              <p class="text-slate-400 text-xs uppercase font-bold tracking-wider mb-1">Total Students</p>
+              <p id="metric-total-students" class="text-3xl font-bold text-white">0</p>
+            </div>
+            <div class="bg-slate-900/50 p-5 rounded-xl border border-slate-700">
+              <p class="text-slate-400 text-xs uppercase font-bold tracking-wider mb-1">Sessions Held</p>
+              <p id="metric-total-sessions" class="text-3xl font-bold text-white">0</p>
+            </div>
+            <div class="bg-slate-900/50 p-5 rounded-xl border border-slate-700">
+              <p class="text-slate-400 text-xs uppercase font-bold tracking-wider mb-1">Hours Delivered</p>
+              <p id="metric-total-hours" class="text-3xl font-bold text-teal-400">0</p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div class="lg:col-span-2 bg-slate-900/50 rounded-xl border border-slate-700 p-5 flex flex-col">
+              <h4 class="text-sm font-bold text-slate-300 mb-4">Attendance Trend</h4>
+              <div class="relative w-full h-72">
+                <canvas id="adminTrendChart"></canvas>
+              </div>
+            </div>
+            <div class="bg-slate-900/50 rounded-xl border border-slate-700 p-5 flex flex-col">
+              <h4 class="text-sm font-bold text-slate-300 mb-4">Participation</h4>
+              <div class="relative w-full h-64 flex items-center justify-center">
+                <canvas id="adminPieChart"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <div id="analytics-history-section" class="hidden pt-4 border-t border-slate-700">
+            <h3 class="text-lg font-bold text-white mb-4">Session History</h3>
+            <div class="bg-slate-900 rounded-xl border border-slate-700 overflow-hidden">
+              <table class="w-full text-left text-sm">
+                <thead class="bg-slate-950 text-slate-400 text-xs uppercase font-bold">
+                  <tr>
+                    <th class="p-4">Date</th>
+                    <th class="p-4 text-center">Session</th>
+                    <th class="p-4 text-center">Stats (P / OD / A)</th>
+                    <th class="p-4 text-right">Performance</th>
+                  </tr>
+                </thead>
+                <tbody id="analytics-history-body" class="divide-y divide-slate-800 text-slate-300"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>

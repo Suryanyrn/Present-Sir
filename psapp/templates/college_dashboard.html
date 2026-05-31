@@ -1,0 +1,37 @@
+{% extends 'includes/college_base.html' %}
+{% load static %}
+{% block content %}
+    {% include 'includes/college_header.html' %}
+    <main class="max-w-7xl mx-auto px-6 pt-28 pb-12">
+      {% include 'includes/college_section_departments.html' %}
+      {% include 'includes/college_section_students.html' %}
+      {% include 'includes/college_section_classes.html' %}
+      {% include 'includes/college_section_faculty.html' %}
+      {% include 'includes/college_section_profile.html' %}
+    </main>
+    {% include 'includes/modal_deleted_history_class.html' %}
+    {% include 'includes/modal_add_dept.html' %}
+    {% include 'includes/modal_manage_dept.html' %}
+    {% include 'includes/modal_manage_class.html' %}
+    {% include 'includes/modal_class_details.html' %}
+    {% include 'includes/modal_assign_course.html' %}
+    {% include 'includes/modal_special_course.html' %}
+    {% include 'includes/modal_edit_student.html' %}
+    {% include 'includes/student_profile_model.html' %}
+    {% include 'includes/cold_call_modal.html' %}    
+    {% include 'includes/download_report_modal.html' %}
+    {% include 'includes/modal_danger_otp.html' %}
+    {% include 'includes/modal_faculty_details.html'%}
+    {% include 'includes/modal_add_single_student.html' %}   
+    {% include 'includes/modal_tt_settings.html' %}
+    {% include 'includes/metrics_modal.html' %}
+    {% include 'includes/defaulters_modal.html' %}
+    {% include 'includes/leaderboard_modal.html' %}
+    {% include 'includes/modal_deleted_students.html' %}
+    {% include 'includes/modal_edit_sem.html' %}
+    {% include 'includes/modal_start_sem.html' %}
+    {% include 'includes/modal_end_sem_otp.html' %}
+    {% include 'includes/college_nav.html' %}
+    {% include 'includes/college_dashboard_scripts.html' %}
+    {% include 'includes/college_footer.html' %}
+  {% endblock %}

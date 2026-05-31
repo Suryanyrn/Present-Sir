@@ -1,0 +1,43 @@
+<header class="sticky top-0 z-40 bg-slate-900/95 backdrop-blur-md shadow-xl border-b border-teal-500/30">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+    <div class="text-4xl font-normal font-['Great_Vibes'] text-white" style="text-shadow: 0 0 10px rgba(32, 201, 151, 0.6);">Present Sir!!!</div>
+
+    <div class="flex items-center gap-4 lg:hidden">
+      <button onclick="notifMgr.toggle()" class="relative p-2 text-slate-400 hover:text-white transition">
+        <i data-lucide="bell" class="w-6 h-6"></i>
+        <span id="mobile-notif-badge" class="hidden absolute top-1 right-1 w-2.5 h-2.5 bg-red-500 rounded-full border border-slate-900 animate-pulse"></span>
+      </button>
+      <button id="menu-btn" class="p-2 rounded-full bg-slate-800 hover:bg-slate-700 transition"><i data-lucide="menu" class="text-teal-400"></i></button>
+    </div>
+
+    <nav class="hidden lg:flex items-center space-x-6 text-sm font-medium">
+      <button id="nav-my-classes" class="text-teal-400 hover:text-white transition">My Classes</button>
+      <button id="nav-create-class" class="text-white bg-teal-600 hover:bg-teal-700 px-4 py-2 rounded-lg transition shadow-md">Create Class</button>
+
+      <div class="relative">
+        <button onclick="notifMgr.toggle()" class="p-2 text-slate-400 hover:text-white transition focus:outline-none">
+          <i data-lucide="bell" class="w-5 h-5"></i>
+          <span id="notif-badge" class="hidden absolute top-1 right-1 w-2.5 h-2.5 bg-red-500 rounded-full border border-slate-900 animate-pulse"></span>
+        </button>
+
+        <div id="notif-dropdown" class="hidden absolute right-0 mt-3 w-80 bg-slate-800 border border-slate-700 rounded-xl shadow-2xl overflow-hidden z-50">
+          <div class="p-3 border-b border-slate-700 bg-slate-900/50">
+            <h4 class="text-sm font-bold text-white">Notifications</h4>
+          </div>
+          <div id="notif-list" class="max-h-64 overflow-y-auto custom-scroll p-1">
+            <p class="text-xs text-slate-500 text-center py-4">No new notifications</p>
+          </div>
+        </div>
+      </div>
+
+      <button id="nav-menu" class="text-slate-400 hover:text-white transition">Menu</button>
+    </nav>
+  </div>
+
+  <div id="mobile-menu" class="hidden lg:hidden bg-slate-800 border-t border-slate-700 py-2">
+    <button class="mobile-nav-btn block w-full text-left px-4 py-2 text-sm text-teal-400 hover:bg-slate-700" data-target="my-classes">My Classes</button>
+    <button class="mobile-nav-btn block w-full text-left px-4 py-2 text-sm text-white bg-teal-600 hover:bg-teal-700" data-target="create-class">Create Class</button>
+    <div class="border-t border-slate-700 my-1"></div>
+    <button class="mobile-nav-btn block w-full text-left px-4 py-2 text-sm text-slate-300 hover:bg-slate-700" data-target="menu">Menu</button>
+  </div>
+</header>

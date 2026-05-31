@@ -1,0 +1,152 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Present Sir!!! - College Admin Portal</title>
+    <link rel="stylesheet" href="{% static 'psapp/css/style.css' %}" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Great+Vibes&display=swap" rel="stylesheet" />
+  </head>
+  <body class="flex flex-col items-center justify-center p-4 animated-background">
+    <input type="hidden" id="csrf-token" value="{{ csrf_token }}" />
+
+    <div class="w-full max-w-md bg-slate-900/90 backdrop-blur-md rounded-2xl card-shadow p-8 space-y-8 relative mb-8">
+      <header class="text-center">
+        <h1 id="app-title" class="text-6xl font-normal text-white mb-2 font-['Great_Vibes']" style="text-shadow: 0 0 15px rgba(32, 201, 151, 0.6);"></h1>
+        <p class="text-amber-400 text-xl font-medium tracking-wide">College Admin Portal</p>
+      </header>
+
+      <div id="status-message" class="hidden p-3 rounded-lg text-sm text-center opacity-0 transition-opacity duration-300"></div>
+
+      <div class="flex bg-slate-800/50 p-1 rounded-xl">
+        <button id="login-tab" onclick="showForm('login')" class="flex-1 py-3 text-sm font-semibold rounded-lg transition duration-300 text-white bg-blue-600 shadow-md">Sign In</button>
+        <button id="register-tab" onclick="showForm('register')" class="flex-1 py-3 text-sm font-semibold rounded-lg transition duration-300 text-slate-300 hover:text-white hover:bg-slate-700">Register Institute</button>
+      </div>
+
+      <div class="relative">
+        <form id="login-form" class="form-container fade-in space-y-6" onsubmit="handleCollegeLogin(event)">
+          <div class="space-y-2">
+            <label class="block text-sm font-medium text-slate-300">Official College Email</label>
+            <input type="email" id="login-email" required class="w-full px-4 py-3 bg-slate-700 text-white border border-slate-700 rounded-lg input-glow" placeholder="admin@college.edu" />
+          </div>
+
+          <div class="space-y-2">
+            <label class="block text-sm font-medium text-slate-300">Password</label>
+            <input type="password" id="login-password" required class="w-full px-4 py-3 bg-slate-700 text-white border border-slate-700 rounded-lg input-glow" placeholder="••••••••" />
+          </div>
+
+          <div class="flex items-center justify-between">
+            <div class="flex items-center">
+              <input id="remember-me" type="checkbox" class="h-4 w-4 text-blue-500 rounded border-slate-600 bg-slate-700" />
+              <label for="remember-me" class="ml-2 block text-sm text-slate-400">Remember me</label>
+            </div>
+            <button type="button" onclick="showForm('forgot')" class="text-sm font-medium text-amber-400 hover:text-amber-300 transition">Forgot Password?</button>
+          </div>
+
+          <button type="submit" id="login-btn" class="w-full py-3 btn-primary btn-login bg-blue-600 text-white font-bold rounded-lg text-lg shadow-xl">Secure Login</button>
+        </form>
+
+        <form id="register-form" class="form-container fade-out space-y-5" onsubmit="handleCollegeRegister(event)">
+          <div class="space-y-1">
+            <label class="block text-sm font-medium text-slate-300">College Name</label>
+            <input type="text" id="reg-college-name" required class="w-full px-4 py-3 bg-slate-700 text-white border border-slate-700 rounded-lg input-glow" placeholder="e.g. Indian Institute of Technology" />
+          </div>
+
+          <div class="grid grid-cols-2 gap-4">
+            <div class="space-y-1">
+              <label class="block text-sm font-medium text-slate-300">College Code</label>
+              <input type="text" id="reg-college-code" required class="w-full px-4 py-3 bg-slate-700 text-white border border-slate-700 rounded-lg input-glow" placeholder="e.g. 9534" />
+            </div>
+            <div class="space-y-1">
+              <label class="block text-sm font-medium text-slate-300">Website</label>
+              <input type="url" id="reg-college-website" required class="w-full px-4 py-3 bg-slate-700 text-white border border-slate-700 rounded-lg input-glow" placeholder="www.college.edu" />
+            </div>
+          </div>
+
+          <div class="space-y-2">
+            <label class="block text-sm font-medium text-slate-300">Official Admin Email</label>
+            <div class="flex gap-2">
+              <input type="email" id="reg-email" required class="w-full px-4 py-3 bg-slate-700 text-white border border-slate-700 rounded-lg input-glow" placeholder="principal@college.edu" />
+              <button type="button" id="send-otp-btn" onclick="sendCollegeOTP()" class="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold rounded-lg shadow-md transition whitespace-nowrap">Send OTP</button>
+            </div>
+          </div>
+
+          <div id="otp-section" class="hidden space-y-2 bg-slate-800/50 p-3 rounded-lg border border-slate-700">
+            <p id="otp-sent-msg" class="text-xs text-green-400">OTP sent to email.</p>
+            <div class="flex gap-2">
+              <input type="text" id="otp-input" class="w-full px-3 py-2 bg-slate-900 text-white border border-slate-600 rounded-lg text-center tracking-widest font-mono" placeholder="123456" />
+              <button type="button" onclick="verifyCollegeOTP()" class="px-4 bg-green-600 hover:bg-green-700 text-white text-xs font-bold rounded-lg">Verify</button>
+            </div>
+            <div id="otp-success-mark" class="hidden text-center">
+              <span class="text-green-400 font-bold text-sm">✓ Verified Successfully</span>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="space-y-1">
+              <label class="block text-sm font-medium text-slate-300">Password</label>
+              <input type="password" id="reg-pass" oninput="validateCollegePassword()" required class="w-full px-4 py-3 bg-slate-700 text-white border border-slate-700 rounded-lg input-glow" placeholder="Min 8 chars" />
+            </div>
+            <div class="space-y-1">
+              <label class="block text-sm font-medium text-slate-300">Confirm</label>
+              <input type="password" id="reg-confirm-pass" oninput="validateCollegePassword()" required class="w-full px-4 py-3 bg-slate-700 text-white border border-slate-700 rounded-lg input-glow" placeholder="Repeat Password" />
+            </div>
+          </div>
+
+          <div id="password-feedback" class="text-xs space-y-1 text-slate-500">
+            <p id="rule-length">❌ Min 8 characters</p>
+            <p id="rule-match">❌ Passwords match</p>
+          </div>
+
+          <button type="submit" id="register-btn" disabled class="w-full py-3 btn-primary bg-teal-600 hover:bg-teal-500 text-white font-bold rounded-lg text-lg shadow-xl opacity-50 cursor-not-allowed transition">Register Institution</button>
+        </form>
+
+        <form id="forgot-form" class="form-container fade-out space-y-6" onsubmit="event.preventDefault();">
+          <div class="text-center mb-4">
+            <h3 class="text-xl font-bold text-amber-400">Reset Password</h3>
+            <p class="text-sm text-slate-400">Secure recovery for Institute Admins</p>
+          </div>
+
+          <div class="space-y-2">
+            <label class="text-sm font-medium text-slate-300">Registered College Email</label>
+            <div class="flex gap-2">
+              <input type="email" id="fp-email" class="w-full px-4 py-3 bg-slate-700 text-white border border-slate-700 rounded-lg input-glow" placeholder="admin@college.edu" />
+              <button type="button" id="fp-send-btn" onclick="sendCollegeResetOTP()" class="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold rounded-lg shadow-md transition whitespace-nowrap">Send OTP</button>
+            </div>
+          </div>
+
+          <div id="fp-otp-section" class="hidden space-y-2 bg-slate-800/50 p-3 rounded-lg border border-slate-700 fade-in">
+            <p class="text-xs text-green-400">OTP sent to your email.</p>
+            <div class="flex gap-2">
+              <input type="text" id="fp-otp-input" class="w-full px-3 py-2 bg-slate-900 text-white border border-slate-600 rounded-lg text-center tracking-widest font-mono" placeholder="6-DIGIT" />
+              <button type="button" onclick="verifyCollegeResetOTP()" class="px-4 bg-green-600 hover:bg-green-700 text-white text-xs font-bold rounded-lg">Verify</button>
+            </div>
+          </div>
+
+          <div id="fp-newpass-section" class="hidden space-y-4 fade-in">
+            <div class="space-y-1">
+              <label class="text-sm text-slate-300">New Password</label>
+              <input type="password" id="fp-new-pass" class="w-full px-4 py-3 bg-slate-700 text-white border border-slate-700 rounded-lg input-glow" placeholder="Min 8 chars" />
+            </div>
+            <div class="space-y-1">
+              <label class="text-sm text-slate-300">Confirm Password</label>
+              <input type="password" id="fp-confirm-pass" class="w-full px-4 py-3 bg-slate-700 text-white border border-slate-700 rounded-lg input-glow" placeholder="Repeat password" />
+            </div>
+
+            <button type="button" id="fp-reset-btn" onclick="finalizeCollegeReset()" class="w-full py-3 bg-teal-500 hover:bg-teal-600 text-white font-bold rounded-lg shadow-lg transition transform active:scale-95">Update Password</button>
+          </div>
+
+          <div class="border-t border-slate-800 pt-4">
+            <button type="button" onclick="showForm('login')" class="w-full text-sm text-slate-400 hover:text-white transition"><span class="text-amber-500">&larr;</span> Back to Login</button>
+          </div>
+        </form>
+      </div>
+
+      <p class="text-center text-xs text-slate-600 mt-6">Restricted Area. Authorized Personnel Only.</p>
+    </div>
+
+    <script src="{% static 'psapp/js/college_auth.js' %}"></script>
+  </body>
+</html>

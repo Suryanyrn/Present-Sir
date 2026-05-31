@@ -1,0 +1,170 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    {% csrf_token %}
+    <meta name="csrf-token" content="{{ csrf_token }}" />
+    <title>College Admin - Present Sir!!!</title>
+    <script>
+      window.djangoUrls = {
+        getData: "{% url 'psapp:get_college_data' %}",
+        addDepartment: "{% url 'psapp:add_department' %}",
+        addClass: "{% url 'psapp:add_class' %}",
+        searchFaculty: "{% url 'psapp:search_faculty' %}",
+        assignFaculty: "{% url 'psapp:assign_faculty' %}",
+        addCourse: "{% url 'psapp:add_course' %}",
+        searchFacultyId: "{% url 'psapp:search_faculty_id' %}",
+        sendInvite: "{% url 'psapp:send_invite' %}",
+        getClassStudents: "{% url 'psapp:get_class_students' %}",
+        getCourses: "{% url 'psapp:get_courses' %}",
+        deleteCourse: "{% url 'psapp:delete_course' %}",
+        editCourse: "{% url 'psapp:edit_course' %}",
+        assignCourse: "{% url 'psapp:assign_course' %}",
+        getClassCourses: "{% url 'psapp:get_class_courses' %}",
+        revokeCourse: "{% url 'psapp:revoke_course' %}",
+        editStudent: "{% url 'psapp:edit_student_api' %}",
+        classAnalytics: "{% url 'psapp:get_class_analytics' %}",
+        exportCsv: "{% url 'psapp:export_attendance_csv' 0 %}",
+        getStudentStats: "{% url 'psapp:get_student_stats_api' 0 %}",
+        getDefaulters: "{% url 'psapp:get_defaulters_list' 0 %}",
+        leaderboard: "{% url 'psapp:get_leaderboard' 0 %}",
+        sendWarnings: "{% url 'psapp:send_warning_emails' %}",
+        sendDeleteOtp: "{% url 'psapp:send_delete_otp_api' %}",
+        verifyDeleteOtp: "{% url 'psapp:verify_delete_otp_api' %}",
+        deleteDept: "{% url 'psapp:delete_department_api' %}",
+        deleteClass: "{% url 'psapp:delete_class_admin_api' %}",
+        getFacDetails: "{% url 'psapp:get_faculty_details_admin' %}",
+        terminateFac: "{% url 'psapp:terminate_faculty_api' %}",
+        addStudent: "{% url 'psapp:add_student_to_existing_class_api' %}",
+        deleteStudent: "{% url 'psapp:delete_student_api' %}",
+        initTimetable: "{% url 'psapp:init_timetable' %}",
+        saveSlot: "{% url 'psapp:save_timetable_slot' %}",
+        checkConflict: "{% url 'psapp:check_conflict' %}",
+        saveTimetableConfig: "{% url 'psapp:save_timetable_config' %}",
+        sendAddDeptOtp: "{% url 'psapp:send_add_dept_otp' %}",
+        verifyAddDeptOtp: "{% url 'psapp:verify_add_dept_otp' %}",
+        getSuggestedSession: "{% url 'psapp:get_suggested_session' %}",
+        exportAdminCourse: "{% url 'psapp:export_admin_course_report' 0 %}",
+        exportAdminMaster: "{% url 'psapp:export_admin_class_overall_report' 0 %}",
+        getAdminStudentProfile: "{% url 'psapp:get_admin_student_profile' 0 %}",
+        exportDeletedStudentsCsv: "{% url 'psapp:export_deleted_students_csv' 0 %}",
+        getClassStudentsAdminAll: "{% url 'psapp:get_class_students_admin_all' %}",
+        sendActionOtp: "{% url 'psapp:send_action_otp_api' %}",
+        verifyActionOtp: "{% url 'psapp:verify_action_and_execute_api' %}",
+        getClassReportCard: "{% url 'psapp:get_class_report_card_api' %}",
+        archiveClass: "{% url 'psapp:archive_class_api' %}",
+        endSemester: "{% url 'psapp:end_semester_api' %}",
+        classHistory: "{% url 'psapp:get_class_history_api' %}",
+        getDeptStudents: "{% url 'psapp:get_dept_students' %}",
+        specialcourse: "{% url 'psapp:assign_special_course_api' %}",
+        sendStartSemOtp: "{% url 'psapp:send_start_sem_otp' %}",
+        verifyStartSemOtp: "{% url 'psapp:verify_start_sem_api' %}",
+        sendEndSemOtp: "{% url 'psapp:send_end_sem_otp' %}",
+        executeEndSem: "{% url 'psapp:end_semester_api' %}",
+        getDeletedStudents: "{% url 'psapp:get_deleted_students_api' %}"
+      }
+    </script>
+    <link rel="stylesheet" href="{% static 'psapp/css/dashboard.css' %}" />
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Great+Vibes&display=swap" rel="stylesheet" />
+    <style>
+      .glass-nav {
+        background: rgba(15, 23, 42, 0.85);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      }
+      .tab-btn.active {
+        color: #2dd4bf;
+        border-bottom: 2px solid #2dd4bf;
+      }
+      .tab-btn {
+        color: #94a3b8;
+        border-bottom: 2px solid transparent;
+      }
+      .tab-btn:hover {
+        color: #f8fafc;
+      }
+      .custom-scroll::-webkit-scrollbar {
+        width: 6px;
+      }
+      .custom-scroll::-webkit-scrollbar-thumb {
+        background: #334155;
+        border-radius: 4px;
+      }
+      .custom-scroll::-webkit-scrollbar-track {
+        background: #1e293b;
+      }
+      
+      /* FIX: Mobile responsive styles */
+      @media (max-width: 768px) {
+        .max-w-7xl {
+          padding: 1rem;
+        }
+        main {
+          margin-left: 0 !important;
+          margin-right: 0 !important;
+          width: 100%;
+          padding: 0.5rem;
+        }
+        header {
+          padding: 0.5rem;
+        }
+        .glass-nav > div {
+          padding: 0.5rem 1rem !important;
+        }
+        h2 {
+          font-size: 1.5rem !important;
+        }
+        .grid {
+          grid-template-columns: 1fr !important;
+        }
+        .hidden.md\\:flex {
+          display: none !important;
+        }
+        .md\\:grid-cols-3 {
+          grid-template-columns: 1fr !important;
+        }
+        .md\\:grid-cols-2 {
+          grid-template-columns: 1fr !important;
+        }
+        .md\\:flex {
+          flex-direction: column;
+        }
+        button {
+          padding: 0.75rem 1rem !important;
+          font-size: 0.875rem !important;
+        }
+        input,
+        select,
+        textarea {
+          font-size: 1rem;
+          padding: 0.75rem !important;
+        }
+        .w-full {
+          width: 100%;
+        }
+      }
+      
+      @media (max-width: 640px) {
+        .text-3xl {
+          font-size: 1.25rem !important;
+        }
+        .text-2xl {
+          font-size: 1.125rem !important;
+        }
+        .text-xl {
+          font-size: 1rem !important;
+        }
+      }
+
+    </style>
+  </head>
+  <body class="bg-slate-950 text-white min-h-screen">
+    {% block content %}{% endblock %}
+  </body>
+</html>

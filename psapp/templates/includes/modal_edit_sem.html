@@ -1,0 +1,17 @@
+<div id="modal-edit-sem" class="fixed inset-0 bg-slate-900/90 hidden items-center justify-center z-[100]">
+      <div class="bg-slate-800 p-6 rounded-2xl border border-slate-700 w-80">
+        <h3 class="text-white font-bold text-lg mb-4">Update Semester</h3>
+        <select id="inp-edit-sem" class="w-full bg-slate-900 border border-slate-600 rounded-lg p-2 text-white mb-4">
+          <option value="1">Sem 1 (Year 1)</option>
+          <option value="2">Sem 2 (Year 1)</option>
+          <option value="3">Sem 3 (Year 2)</option>
+          <option value="4">Sem 4 (Year 2)</option>
+          <option value="5">Sem 5 (Year 3)</option>
+          <option value="6">Sem 6 (Year 3)</option>
+          <option value="7">Sem 7 (Year 4)</option>
+          <option value="8">Sem 8 (Year 4)</option>
+        </select>
+        <button onclick="classMgr.submitSemesterUpdate()" class="w-full bg-teal-600 text-white font-bold py-2 rounded-lg">Update</button>
+        <button onclick="document.getElementById('modal-edit-sem').classList.add('hidden')" class="w-full text-slate-500 text-sm mt-2">Cancel</button>
+      </div>
+    </div>

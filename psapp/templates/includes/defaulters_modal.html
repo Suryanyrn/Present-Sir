@@ -1,0 +1,35 @@
+<div id="defaulters-modal" class="fixed inset-0 bg-slate-900/95 backdrop-blur-sm flex items-center justify-center p-4 z-[90] hidden">
+      <div class="bg-slate-800 rounded-xl shadow-2xl w-full max-w-3xl max-h-[90vh] flex flex-col p-6 border border-slate-700 relative">
+        <div class="flex justify-between items-start mb-6 border-b border-slate-700 pb-4">
+          <div>
+            <h2 class="text-2xl font-bold text-white flex items-center"><i data-lucide="alert-triangle" class="text-red-500 mr-2"></i> Detention List</h2>
+            <p class="text-slate-400 text-sm mt-1">
+              Students below 75% in <span id="defaulter-class-name" class="text-teal-400 font-bold"></span>
+            </p>
+          </div>
+          <button onclick="document.getElementById('defaulters-modal').classList.add('hidden')" class="text-slate-400 hover:text-white bg-slate-700 p-2 rounded-lg"><i data-lucide="x"></i></button>
+        </div>
+        <div class="flex-1 overflow-y-auto custom-scroll pr-2">
+          <table class="w-full text-left border-collapse">
+            <thead class="bg-slate-900 text-slate-400 text-xs uppercase sticky top-0">
+              <tr>
+                <th class="p-3 rounded-tl-lg">Reg No</th>
+                <th class="p-3">Name</th>
+                <th class="p-3 text-center">Attended</th>
+                <th class="p-3 text-center">%</th>
+                <th class="p-3 rounded-tr-lg text-center">Status</th>
+              </tr>
+            </thead>
+            <tbody id="defaulters-table-body" class="text-sm divide-y divide-slate-700"></tbody>
+          </table>
+          <div id="no-defaulters-msg" class="hidden flex flex-col items-center justify-center py-10 text-slate-500">
+            <i data-lucide="check-circle" class="w-12 h-12 text-green-500 mb-2 opacity-50"></i>
+            <p>Great! No defaulters found.</p>
+          </div>
+        </div>
+        <div class="mt-6 pt-4 border-t border-slate-700 flex justify-end">
+          <button onclick="window.print()" class="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-lg flex items-center transition mr-3"><i data-lucide="printer" class="w-4 h-4 mr-2"></i> Print</button>
+          <button onclick="document.getElementById('defaulters-modal').classList.add('hidden')" class="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-lg font-bold transition">Close</button>
+        </div>
+      </div>
+    </div>

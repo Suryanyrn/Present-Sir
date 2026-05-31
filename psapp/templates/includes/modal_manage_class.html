@@ -1,0 +1,239 @@
+<div id="modal-manage-class" class="fixed inset-0 bg-slate-900/95 backdrop-blur-sm hidden items-center justify-center z-[70]">
+      <div class="bg-slate-800 w-full max-w-6xl h-[95vh] rounded-2xl border border-slate-700 shadow-2xl flex flex-col overflow-hidden relative">
+        <div class="p-6 border-b border-slate-700 bg-slate-800 flex justify-between items-center shrink-0">
+          <div class="flex items-center gap-4">
+            <button id="btn-back-class-home" onclick="classMgr.showHome()" class="hidden p-2 bg-slate-700/50 hover:bg-slate-700 text-slate-300 rounded-lg transition"><i data-lucide="arrow-left" class="w-5 h-5"></i></button>
+            <div>
+              <h3 class="text-2xl font-bold text-white" id="mng-class-name">Loading...</h3>
+              <div class="flex items-center gap-3 mt-1 text-sm text-slate-400">
+                <span class="bg-slate-700 px-2 py-0.5 rounded text-teal-400 font-mono" id="mng-class-batch">...</span>
+                <span id="mng-student-count">0 Students</span>
+              </div>
+            </div>
+          </div>
+          <button onclick="modals.close('modal-manage-class')" class="p-2 bg-slate-700/50 hover:bg-red-900/30 text-slate-300 hover:text-red-400 rounded-lg transition"><i data-lucide="x" class="w-5 h-5"></i></button>
+        </div>
+
+        <div class="flex-1 overflow-y-auto custom-scroll p-8 bg-slate-900/30">
+          <div id="cls-view-home" class="h-full flex flex-col max-w-7xl mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+              <button onclick="classMgr.showRoster()" class="group bg-slate-800 hover:bg-blue-900/20 border border-slate-700 hover:border-blue-500/50 rounded-3xl p-6 text-center transition-all duration-300 hover:-translate-y-2 shadow-xl flex flex-col items-center justify-center min-h-[200px]">
+                <div class="w-16 h-16 bg-slate-900 rounded-full flex items-center justify-center mb-6 group-hover:bg-blue-600 transition shadow-2xl border border-slate-700 group-hover:border-blue-400">
+                  <i data-lucide="users" class="w-8 h-8 text-blue-400 group-hover:text-white"></i>
+                </div>
+                <h4 class="text-lg font-bold text-white mb-2">Student Roster</h4><p class="text-xs text-slate-400">View profiles & edit.</p>
+              </button>
+
+              <button onclick="classMgr.showAssigned()" class="group bg-slate-800 hover:bg-purple-900/20 border border-slate-700 hover:border-purple-500/50 rounded-3xl p-6 text-center transition-all duration-300 hover:-translate-y-2 shadow-xl flex flex-col items-center justify-center min-h-[200px]">
+                <div class="w-16 h-16 bg-slate-900 rounded-full flex items-center justify-center mb-6 group-hover:bg-purple-600 transition shadow-2xl border border-slate-700 group-hover:border-purple-400">
+                  <i data-lucide="briefcase" class="w-8 h-8 text-purple-400 group-hover:text-white"></i>
+                </div>
+                <h4 class="text-lg font-bold text-white mb-2">Assigned Courses</h4><p class="text-xs text-slate-400">Manage Faculty.</p>
+              </button>
+
+              <button onclick="timetableMgr.open(state.currentClassId)" class="group bg-slate-800 hover:bg-teal-900/20 border border-slate-700 hover:border-teal-500/50 rounded-3xl p-6 text-center transition-all duration-300 hover:-translate-y-2 shadow-xl flex flex-col items-center justify-center min-h-[200px]">
+                <div class="w-16 h-16 bg-slate-900 rounded-full flex items-center justify-center mb-6 group-hover:bg-teal-600 transition shadow-2xl border border-slate-700 group-hover:border-teal-400">
+                  <i data-lucide="calendar-clock" class="w-8 h-8 text-teal-400 group-hover:text-white"></i>
+                </div>
+                <h4 class="text-lg font-bold text-white mb-2">Timetable</h4><p class="text-xs text-slate-400">Schedule sessions.</p>
+              </button>
+
+              <button onclick="analyticsMgr.openHub()" class="group bg-slate-800 hover:bg-emerald-900/20 border border-slate-700 hover:border-emerald-500/50 rounded-3xl p-6 text-center transition-all duration-300 hover:-translate-y-2 shadow-xl flex flex-col items-center justify-center min-h-[200px]">
+                <div class="w-16 h-16 bg-slate-900 rounded-full flex items-center justify-center mb-6 group-hover:bg-emerald-600 transition shadow-2xl border border-slate-700 group-hover:border-emerald-400">
+                  <i data-lucide="bar-chart-2" class="w-8 h-8 text-emerald-400 group-hover:text-white"></i>
+                </div>
+                <h4 class="text-lg font-bold text-white mb-2">Attendance Suite</h4><p class="text-xs text-slate-400">Reports & Insights.</p>
+              </button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
+              <button onclick="classMgr.showHistory()" class="group bg-slate-800 hover:bg-amber-900/20 border border-slate-700 hover:border-amber-500/50 rounded-3xl p-6 text-center transition-all duration-300 hover:-translate-y-2 shadow-xl flex flex-col items-center justify-center min-h-[150px]">
+                <div class="w-12 h-12 bg-slate-900 rounded-full flex items-center justify-center mb-4 group-hover:bg-amber-600 transition shadow-2xl border border-slate-700 group-hover:border-amber-400">
+                  <i data-lucide="history" class="w-6 h-6 text-amber-400 group-hover:text-white"></i>
+                </div>
+                <h4 class="text-md font-bold text-white mb-1">Previous Data</h4><p class="text-[10px] text-slate-400">Archived Semesters.</p>
+              </button>
+            </div>
+
+            <div class="mt-8 pt-6 border-t border-slate-700">
+              <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2"><i data-lucide="shield-alert" class="text-red-500"></i> Admin Controls</h3>
+              <div class="bg-slate-900/50 border border-slate-700 p-6 rounded-xl mb-6">
+                <div class="flex justify-between items-center mb-4">
+                  <div>
+                    <h4 class="text-lg font-bold text-white">Semester Status</h4>
+                    <p id="sem-status-indicator" class="text-xs font-bold uppercase tracking-widest mt-1 text-slate-500">Loading...</p>
+                  </div>
+                  <div id="sem-action-container"></div>
+                </div>
+                <div id="sem-active-details" class="hidden grid grid-cols-2 gap-4 text-sm text-slate-400 bg-slate-800/50 p-4 rounded-lg">
+                  <div>
+                    Start: <span id="disp-sem-start" class="text-white font-mono">--</span>
+                  </div>
+                  <div>
+                    End: <span id="disp-sem-end" class="text-white font-mono">--</span>
+                  </div>
+                </div>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="bg-slate-900/50 border border-slate-600 p-4 rounded-xl flex justify-between items-center">
+                  <div>
+                    <p class="text-slate-300 font-bold text-sm">Graduated?</p>
+                    <p class="text-xs text-slate-500">Move to Alumni</p>
+                  </div>
+                  <button onclick="dangerMgr.confirmArchiveClass()" class="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-lg transition text-xs font-bold border border-slate-500">Inactive</button>
+                </div>
+
+                <div class="bg-red-900/20 border border-red-900/30 p-4 rounded-xl flex justify-between items-center hover:bg-red-900/30 transition">
+                  <div>
+                    <p class="text-red-400 font-bold text-sm">Delete Class</p>
+                    <p class="text-xs text-red-300/70">Permanent</p>
+                  </div>
+                  <button onclick="dangerMgr.confirmDeleteClass(state.currentClassId)" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition text-xs font-bold shadow-lg">Delete</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="cls-view-roster" class="hidden h-full flex flex-col max-w-6xl mx-auto">
+            <div class="flex justify-between items-center mb-6">
+              <h4 class="text-xl font-bold text-blue-400 flex items-center gap-2"><i data-lucide="users"></i> Class Roster</h4>
+              <div class="relative">
+                <i data-lucide="search" class="absolute left-3 top-2.5 w-4 h-4 text-slate-500"></i><input type="text" id="roster-search-bar" onkeyup="classMgr.filterRoster()" placeholder="Search student..." class="bg-slate-800 border border-slate-600 rounded-xl pl-10 pr-4 py-2 text-sm text-white focus:border-blue-500 outline-none w-64" />
+              </div>
+            </div>
+            <div class="flex-1 overflow-y-auto custom-scroll bg-slate-800/50 rounded-2xl border border-slate-700 p-1">
+              <table class="w-full text-left text-sm">
+                <thead class="bg-slate-900/80 text-slate-400 uppercase font-bold text-xs border-b border-slate-700 sticky top-0">
+                  <tr>
+                    <th class="p-4 pl-6">Reg No</th>
+                    <th class="p-4">Name</th>
+                    <th class="p-4">Email</th>
+                    <th class="p-4 text-right pr-6">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="cls-roster-body" class="divide-y divide-slate-700/50 text-slate-300"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <div id="cls-view-assigned" class="hidden h-full flex flex-col max-w-6xl mx-auto">
+            <div class="flex justify-between items-center mb-6">
+              <h4 class="text-xl font-bold text-purple-400 flex items-center gap-2"><i data-lucide="briefcase"></i> Faculty Assignments</h4>
+              <button onclick="resourceMgr.openAssignModal()" class="bg-purple-600 hover:bg-purple-500 text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-lg flex items-center gap-2 transition hover:-translate-y-0.5"><i data-lucide="plus" class="w-4 h-4"></i> Assign New</button>
+            </div>
+            <div class="flex-1 overflow-y-auto custom-scroll bg-slate-800/50 rounded-2xl border border-slate-700 p-1">
+              <table class="w-full text-left text-sm">
+                <thead class="bg-slate-900/80 text-slate-400 uppercase font-bold text-xs border-b border-slate-700 sticky top-0">
+                  <tr>
+                    <th class="p-4 pl-6">Subject</th>
+                    <th class="p-4">Type</th>
+                    <th class="p-4">Batch</th>
+                    <th class="p-4">Faculty</th>
+                    <th class="p-4 text-center">Students</th>
+                    <th class="p-4 text-right">Action</th>
+                  </tr>
+                </thead>
+                <tbody id="cls-assigned-body" class="divide-y divide-slate-700/50 text-slate-300"></tbody>
+              </table>
+              <div id="no-assigned-msg" class="hidden text-center py-20 text-slate-500">
+                <i data-lucide="book-open" class="w-12 h-12 mx-auto mb-3 opacity-20"></i><p>No courses assigned yet.</p>
+              </div>
+            </div>
+          </div>
+
+          <div id="cls-view-timetable" class="hidden h-full flex flex-col max-w-6xl mx-auto">
+            <div class="flex justify-between items-center mb-6 shrink-0">
+              <div>
+                <h2 class="text-2xl font-bold text-white flex items-center gap-3"><i data-lucide="calendar-clock" class="text-teal-400"></i> Timetable Studio</h2><p class="text-slate-400 mt-1 text-sm" id="tt-subtitle">
+                  Generating Schedule for <span id="tt-class-name" class="text-white font-bold"></span>
+                </p>
+              </div>
+              <div class="flex gap-3">
+                <div class="bg-slate-900 px-4 py-2 rounded-lg border border-slate-700 flex flex-col items-end">
+                  <span class="text-[10px] text-slate-500 uppercase font-bold">Weeks</span><span class="text-xl font-mono font-bold text-white" id="tt-weeks-disp">0</span>
+                </div>
+                <button onclick="timetableMgr.saveConfig()" class="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-lg font-bold text-xs transition border border-slate-600"><i data-lucide="settings" class="w-4 h-4 inline mr-1"></i> Config</button>
+              </div>
+            </div>
+            <div class="flex gap-6 flex-1 overflow-hidden">
+              <div class="w-64 bg-slate-800 rounded-2xl border border-slate-700 flex flex-col shrink-0">
+                <div class="p-4 border-b border-slate-700 bg-slate-900/50 rounded-t-2xl">
+                  <h3 class="font-bold text-slate-300 uppercase text-xs tracking-wider">Subject Load</h3><p class="text-[10px] text-slate-500 mt-1">Select to assign.</p>
+                </div>
+                <div id="tt-subject-list" class="p-3 space-y-3 overflow-y-auto custom-scroll flex-1"></div>
+              </div>
+              <div class="flex-1 bg-slate-800 rounded-2xl border border-slate-700 p-1 overflow-auto custom-scroll relative">
+                <table class="w-full border-collapse">
+                  <thead class="bg-slate-900/50 sticky top-0 z-10">
+                    <tr id="tt-grid-header"></tr>
+                  </thead>
+                  <tbody id="tt-grid-body"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div id="cls-view-analytics" class="hidden h-full flex flex-col max-w-6xl mx-auto">
+            <div class="flex justify-between items-center mb-8">
+              <h4 class="text-xl font-bold text-emerald-400 flex items-center gap-2"><i data-lucide="layout-grid"></i> Attendance & Analytics Hub</h4>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <button onclick="analyticsMgr.showMetrics()" class="bg-slate-800 p-6 rounded-2xl border border-slate-700 hover:border-emerald-500 hover:bg-slate-700/50 transition text-left group">
+                <div class="w-12 h-12 bg-emerald-900/30 text-emerald-400 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition">
+                  <i data-lucide="pie-chart" class="w-6 h-6"></i>
+                </div>
+                <h3 class="text-lg font-bold text-white">Class Analytics</h3><p class="text-sm text-slate-400 mt-1">Graphs, trends, and metrics.</p>
+              </button>
+              <button onclick="analyticsMgr.showDefaulters()" class="bg-slate-800 p-6 rounded-2xl border border-slate-700 hover:border-red-500 hover:bg-slate-700/50 transition text-left group">
+                <div class="w-12 h-12 bg-red-900/30 text-red-400 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition">
+                  <i data-lucide="alert-triangle" class="w-6 h-6"></i>
+                </div>
+                <h3 class="text-lg font-bold text-white">Defaulters List</h3><p class="text-sm text-slate-400 mt-1">Students below 75%.</p>
+              </button>
+              <button onclick="analyticsMgr.showLeaderboard()" class="bg-slate-800 p-6 rounded-2xl border border-slate-700 hover:border-yellow-500 hover:bg-slate-700/50 transition text-left group">
+                <div class="w-12 h-12 bg-yellow-900/30 text-yellow-400 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition">
+                  <i data-lucide="trophy" class="w-6 h-6"></i>
+                </div>
+                <h3 class="text-lg font-bold text-white">Leaderboard</h3><p class="text-sm text-slate-400 mt-1">Top performers ranked.</p>
+              </button>
+              <button onclick="analyticsMgr.showColdCall()" class="bg-slate-800 p-6 rounded-2xl border border-slate-700 hover:border-pink-500 hover:bg-slate-700/50 transition text-left group">
+                <div class="w-12 h-12 bg-pink-900/30 text-pink-400 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition">
+                  <i data-lucide="dices" class="w-6 h-6"></i>
+                </div>
+                <h3 class="text-lg font-bold text-white">Cold Call Picker</h3><p class="text-sm text-slate-400 mt-1">Random student selector.</p>
+              </button>
+              <button onclick="analyticsMgr.showReports()" class="bg-slate-800 p-6 rounded-2xl border border-slate-700 hover:border-blue-500 hover:bg-slate-700/50 transition text-left group">
+                <div class="w-12 h-12 bg-blue-900/30 text-blue-400 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition">
+                  <i data-lucide="file-down" class="w-6 h-6"></i>
+                </div>
+                <h3 class="text-lg font-bold text-white">Download Reports</h3><p class="text-sm text-slate-400 mt-1">Export attendance CSV/PDF.</p>
+              </button>
+            </div>
+          </div>
+
+          <div id="cls-view-history" class="hidden h-full flex flex-col max-w-6xl mx-auto">
+            <div class="flex justify-between items-center mb-6">
+              <h4 class="text-xl font-bold text-amber-400 flex items-center gap-2"><i data-lucide="history"></i> Previous Semester Archives</h4>
+              <button onclick="classMgr.showHome()" class="text-sm text-slate-400 hover:text-white flex items-center"><i data-lucide="arrow-left" class="w-4 h-4 mr-1"></i> Back</button>
+            </div>
+            <div class="flex-1 overflow-y-auto custom-scroll bg-slate-800/50 rounded-2xl border border-slate-700 p-1">
+              <table class="w-full text-left text-sm">
+                <thead class="bg-slate-900/80 text-slate-400 uppercase font-bold text-xs border-b border-slate-700 sticky top-0">
+                  <tr>
+                    <th class="p-4 pl-6">Sem</th>
+                    <th class="p-4">Subject</th>
+                    <th class="p-4">Faculty</th>
+                    <th class="p-4 text-center">Sessions Held</th>
+                    <th class="p-4 text-right pr-6">Download</th>
+                  </tr>
+                </thead>
+                <tbody id="cls-history-body" class="divide-y divide-slate-700/50 text-slate-300"></tbody>
+              </table>
+              <div id="no-history-msg" class="hidden text-center py-20 text-slate-500">
+                <i data-lucide="archive" class="w-12 h-12 mx-auto mb-3 opacity-20"></i><p>No archived data found.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>

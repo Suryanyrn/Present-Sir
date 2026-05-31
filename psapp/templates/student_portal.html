@@ -1,0 +1,361 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Portal - Present Sir!!!</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Great+Vibes&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .glass { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .brand-font { font-family: 'Great Vibes', cursive; }
+        .animate-up { animation: slideUp 0.5s ease-out; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body class="bg-slate-950 text-white min-h-screen flex flex-col relative overflow-x-hidden">
+
+    <div class="fixed top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
+        <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-teal-600/20 rounded-full blur-[120px] -mr-20 -mt-20"></div>
+        <div class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-purple-600/10 rounded-full blur-[100px] -ml-20 -mb-20"></div>
+    </div>
+
+    <header class="relative z-10 w-full p-6 flex justify-between items-center">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-gradient-to-br from-teal-500 to-emerald-600 rounded-xl flex items-center justify-center shadow-lg shadow-teal-900/50">
+                <i data-lucide="graduation-cap" class="text-white w-6 h-6"></i>
+            </div>
+            <div>
+                <h1 class="text-2xl brand-font text-white leading-none">Present Sir!!!</h1>
+                <p class="text-[10px] text-slate-400 uppercase tracking-widest font-bold ml-1">Student Portal</p>
+            </div>
+        </div>
+        <button onclick="window.location.reload()" class="text-slate-400 hover:text-white transition" title="Reset">
+            <i data-lucide="refresh-ccw" class="w-5 h-5"></i>
+        </button>
+    </header>
+
+    <main class="relative z-10 flex-1 flex flex-col items-center justify-center p-4">
+        
+        <div id="login-card" class="w-full max-w-md glass rounded-2xl p-8 shadow-2xl animate-up">
+            <h2 class="text-2xl font-bold text-white mb-2">Check Your Attendance</h2>
+            <p class="text-slate-400 text-sm mb-6">Enter details to view your live report.</p>
+
+            <div class="space-y-5">
+                <div class="relative">
+                    <label class="text-xs text-teal-400 font-bold uppercase ml-1 mb-1 block">1. College Code</label>
+                    <div class="flex gap-2">
+                        <input type="text" id="inp-college-code" class="w-full bg-slate-900/50 border border-slate-600 rounded-lg p-3 text-white uppercase tracking-widest font-mono focus:border-teal-500 outline-none transition" placeholder="CODE">
+                        <button onclick="portal.verifyCollege()" id="btn-verify-code" class="bg-slate-700 hover:bg-slate-600 text-white px-4 rounded-lg font-bold transition"><i data-lucide="arrow-right"></i></button>
+                    </div>
+                    <p id="college-name-disp" class="text-xs text-green-400 mt-1 hidden font-bold"></p>
+                </div>
+
+                <div id="step-dept" class="opacity-50 pointer-events-none transition-all duration-300">
+                    <label class="text-xs text-slate-500 font-bold uppercase ml-1 mb-1 block">2. Department</label>
+                    <select id="inp-dept" class="w-full bg-slate-900/50 border border-slate-600 rounded-lg p-3 text-white focus:border-teal-500 outline-none cursor-pointer">
+                        <option value="">-- Select Department --</option>
+                    </select>
+                </div>
+
+                <div id="step-reg" class="opacity-50 pointer-events-none transition-all duration-300">
+                    <label class="text-xs text-slate-500 font-bold uppercase ml-1 mb-1 block">3. Register Number</label>
+                    <input type="text" id="inp-reg-no" class="w-full bg-slate-900/50 border border-slate-600 rounded-lg p-3 text-white focus:border-teal-500 outline-none" placeholder="e.g. 9500..." />
+                </div>
+
+                <button onclick="portal.getProfile()" id="btn-get-profile" class="w-full py-4 bg-teal-600 hover:bg-teal-500 text-white rounded-xl font-bold text-lg shadow-lg shadow-teal-900/50 transition transform active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                    View Profile
+                </button>
+            </div>
+        </div>
+
+        <div id="dashboard-view" class="w-full max-w-5xl hidden animate-up pb-10">
+            
+            <div class="glass rounded-2xl p-6 mb-6 flex flex-col md:flex-row justify-between items-center gap-6 border-l-4 border-teal-500">
+                <div class="flex items-center gap-5">
+                    <div class="w-20 h-20 bg-slate-800 rounded-full flex items-center justify-center text-2xl font-bold text-teal-400 border-2 border-slate-700 shadow-inner" id="profile-initials">
+                        ST
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-white" id="disp-name">Student Name</h2>
+                        <p class="text-teal-400 font-mono text-sm" id="disp-reg">REG12345</p>
+                        <div class="flex flex-wrap gap-2 mt-2">
+                            <span class="px-2 py-1 bg-slate-800 rounded text-xs text-slate-300 border border-slate-700" id="disp-dept">CSE</span>
+                            <span class="px-2 py-1 bg-slate-800 rounded text-xs text-slate-300 border border-slate-700" id="disp-year">Year 3</span>
+                            <span class="px-2 py-1 bg-slate-800 rounded text-xs text-slate-300 border border-slate-700" id="disp-college">College Name</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center bg-slate-900/50 p-4 rounded-xl border border-slate-700 min-w-[150px]">
+                    <p class="text-xs text-slate-400 uppercase font-bold">Overall Attendance</p>
+                    <div class="text-4xl font-bold text-white mt-1" id="disp-pct">0%</div>
+                    <div class="mt-2 inline-block px-3 py-1 rounded-full text-xs font-bold" id="disp-status-badge">Safe Zone</div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                
+                <div class="space-y-6">
+                    <div class="glass p-5 rounded-2xl">
+                        <h3 class="text-sm font-bold text-slate-300 mb-4 uppercase tracking-wider">Semester Summary</h3>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div class="bg-green-900/20 p-3 rounded-lg border border-green-500/20 text-center">
+                                <p class="text-green-400 text-xs font-bold">PRESENT</p>
+                                <p class="text-2xl font-bold text-white mt-1" id="stat-present">0</p>
+                            </div>
+                            <div class="bg-blue-900/20 p-3 rounded-lg border border-blue-500/20 text-center">
+                                <p class="text-blue-400 text-xs font-bold">ON DUTY</p>
+                                <p class="text-2xl font-bold text-white mt-1" id="stat-od">0</p>
+                            </div>
+                            <div class="bg-red-900/20 p-3 rounded-lg border border-red-500/20 text-center">
+                                <p class="text-red-400 text-xs font-bold">ABSENT</p>
+                                <p class="text-2xl font-bold text-white mt-1" id="stat-absent">0</p>
+                            </div>
+                            <div class="bg-slate-800 p-3 rounded-lg border border-slate-700 text-center">
+                                <p class="text-slate-400 text-xs font-bold">TOTAL HRS</p>
+                                <p class="text-2xl font-bold text-white mt-1" id="stat-total">0</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="glass p-5 rounded-2xl border-l-4 border-blue-500" id="calc-box">
+                        <h3 class="text-sm font-bold text-white flex items-center gap-2">
+                            <i data-lucide="calculator" class="w-4 h-4 text-blue-400"></i> Insight
+                        </h3>
+                        <p class="text-sm text-slate-300 mt-2 leading-relaxed" id="disp-insight">
+                            Calculating...
+                        </p>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-2 space-y-6">
+                    <div class="glass p-5 rounded-2xl">
+                        <h3 class="text-sm font-bold text-slate-300 mb-4">Subject-wise Analysis</h3>
+                        <div class="h-64 w-full">
+                            <canvas id="studentChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="glass rounded-2xl overflow-hidden">
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left text-sm">
+                                <thead class="bg-slate-900/80 text-slate-400 text-xs uppercase font-bold">
+                                    <tr>
+                                        <th class="p-4">Subject</th>
+                                        <th class="p-4 text-center text-green-400">P</th>
+                                        <th class="p-4 text-center text-blue-400">OD</th>
+                                        <th class="p-4 text-center text-red-400">A</th>
+                                        <th class="p-4 text-right">Percent</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="table-body" class="divide-y divide-slate-800 text-slate-300">
+                                    </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        lucide.createIcons();
+
+        const portal = {
+            chartInstance: null,
+
+            // 1. Verify College Code
+            async verifyCollege() {
+                const code = document.getElementById('inp-college-code').value.trim();
+                const btn = document.getElementById('btn-verify-code');
+                const nameDisp = document.getElementById('college-name-disp');
+                
+                if(!code) return alert("Enter College Code");
+
+                btn.disabled = true;
+                btn.innerHTML = '...';
+
+                try {
+                    const res = await fetch(`/api/public/get-depts/?code=${encodeURIComponent(code)}`);
+                    const data = await res.json();
+
+                    if(data.found) {
+                        // Success: Show Name, Enable Next Step
+                        nameDisp.textContent = data.college_name;
+                        nameDisp.classList.remove('hidden');
+                        
+                        const deptSel = document.getElementById('inp-dept');
+                        deptSel.innerHTML = '<option value="">-- Select Department --</option>';
+                        data.departments.forEach(d => {
+                            deptSel.innerHTML += `<option value="${d.id}">${d.name}</option>`;
+                        });
+
+                        // UI Transition
+                        document.getElementById('step-dept').classList.remove('opacity-50', 'pointer-events-none');
+                        
+                        // Enable Reg No logic
+                        deptSel.onchange = () => {
+                            if(deptSel.value) {
+                                document.getElementById('step-reg').classList.remove('opacity-50', 'pointer-events-none');
+                                document.getElementById('btn-get-profile').disabled = false;
+                            }
+                        };
+
+                    } else {
+                        alert("Invalid College Code");
+                        nameDisp.classList.add('hidden');
+                    }
+                } catch(e) {
+                    console.error(e);
+                    alert("Network Error");
+                } finally {
+                    btn.disabled = false;
+                    btn.innerHTML = '<i data-lucide="arrow-right"></i>';
+                    lucide.createIcons();
+                }
+            },
+
+            // 2. Fetch Profile
+            async getProfile() {
+                const code = document.getElementById('inp-college-code').value.trim();
+                const deptId = document.getElementById('inp-dept').value;
+                const regNo = document.getElementById('inp-reg-no').value.trim();
+                const btn = document.getElementById('btn-get-profile');
+
+                if(!code || !deptId || !regNo) return alert("Please fill all fields");
+
+                btn.innerText = "Searching...";
+                btn.disabled = true;
+
+                try {
+                    const res = await fetch('/api/public/get-profile/', {
+                        method: 'POST',
+                        body: JSON.stringify({ college_code: code, dept_id: deptId, reg_no: regNo })
+                    });
+                    const data = await res.json();
+
+                    if(res.ok) {
+                        this.renderDashboard(data);
+                    } else {
+                        alert(data.error || "Student not found");
+                        btn.innerText = "View Profile";
+                        btn.disabled = false;
+                    }
+                } catch(e) {
+                    console.error(e);
+                    alert("Network Error");
+                    btn.innerText = "View Profile";
+                    btn.disabled = false;
+                }
+            },
+
+            // 3. Render Dashboard
+            renderDashboard(data) {
+                // Hide Login, Show Dashboard
+                document.getElementById('login-card').classList.add('hidden');
+                document.getElementById('dashboard-view').classList.remove('hidden');
+
+                // Header Info
+                document.getElementById('disp-name').textContent = data.name;
+                document.getElementById('disp-reg').textContent = data.reg_no;
+                document.getElementById('disp-dept').textContent = data.dept_name;
+                document.getElementById('disp-college').textContent = data.college_name;
+                document.getElementById('disp-year').textContent = `Year ${data.current_year}`;
+                
+                // Initials
+                const init = data.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+                document.getElementById('profile-initials').textContent = init;
+
+                // Stats
+                document.getElementById('disp-pct').textContent = data.stats.overall_pct + '%';
+                document.getElementById('stat-present').textContent = data.stats.present;
+                document.getElementById('stat-od').textContent = data.stats.od;
+                document.getElementById('stat-absent').textContent = data.stats.absent;
+                document.getElementById('stat-total').textContent = data.stats.total_hours;
+
+                // Status Badge
+                const badge = document.getElementById('disp-status-badge');
+                badge.textContent = data.stats.status_label;
+                if(data.stats.status_color === 'green') {
+                    badge.className = "mt-2 inline-block px-4 py-1 rounded-full text-xs font-bold bg-green-900 text-green-400 border border-green-700";
+                } else {
+                    badge.className = "mt-2 inline-block px-4 py-1 rounded-full text-xs font-bold bg-red-900 text-red-400 border border-red-700";
+                }
+
+                // Insight Text
+                const insightBox = document.getElementById('disp-insight');
+                if (data.stats.status_color === 'green') {
+                    insightBox.innerHTML = `Great job! You are in the <b>Safe Zone</b>.<br>You have a safety margin of approx <b>${data.stats.margin} hours</b>.`;
+                    document.getElementById('calc-box').className = "glass p-5 rounded-2xl border-l-4 border-green-500";
+                } else {
+                    insightBox.innerHTML = `Warning! You are in the <b>Critical Zone</b>.<br>You are short by approx <b>${data.stats.margin} hours</b>. Attend immediately!`;
+                    document.getElementById('calc-box').className = "glass p-5 rounded-2xl border-l-4 border-red-500";
+                }
+
+                // Table
+                const tbody = document.getElementById('table-body');
+                tbody.innerHTML = '';
+                data.courses.forEach(c => {
+                    let color = 'text-white';
+                    if(c.percentage < 75) color = 'text-red-400 font-bold';
+                    else if(c.percentage >= 90) color = 'text-teal-400 font-bold';
+
+                    tbody.innerHTML += `
+                        <tr class="hover:bg-slate-800/50 transition border-b border-slate-800/50 last:border-0">
+                            <td class="p-4">
+                                <div class="font-bold text-slate-200">${c.subject}</div>
+                                <div class="text-[10px] text-slate-500 font-mono">${c.code}</div>
+                            </td>
+                            <td class="p-4 text-center font-mono text-green-400">${c.present}</td>
+                            <td class="p-4 text-center font-mono text-blue-400">${c.od}</td>
+                            <td class="p-4 text-center font-mono text-red-400">${c.absent}</td>
+                            <td class="p-4 text-right ${color}">${c.percentage}%</td>
+                        </tr>
+                    `;
+                });
+
+                // Chart
+                this.renderChart(data.courses);
+            },
+
+            renderChart(courses) {
+                const ctx = document.getElementById('studentChart').getContext('2d');
+                
+                const labels = courses.map(c => c.code || c.subject.substring(0, 10)+'...');
+                const pData = courses.map(c => c.present);
+                const aData = courses.map(c => c.absent);
+                const odData = courses.map(c => c.od);
+
+                this.chartInstance = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [
+                            { label: 'Present', data: pData, backgroundColor: '#10b981', stack: 'Stack 0' },
+                            { label: 'OD', data: odData, backgroundColor: '#3b82f6', stack: 'Stack 0' },
+                            { label: 'Absent', data: aData, backgroundColor: '#ef4444', stack: 'Stack 0' },
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { position: 'bottom', labels: { color: '#94a3b8' } }
+                        },
+                        scales: {
+                            x: { grid: { display: false }, ticks: { color: '#94a3b8' } },
+                            y: { grid: { color: '#334155' }, ticks: { color: '#94a3b8' }, beginAtZero: true }
+                        }
+                    }
+                });
+            }
+        };
+    </script>
+</body>
+</html>

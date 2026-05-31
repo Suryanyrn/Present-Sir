@@ -1,0 +1,92 @@
+<section id="class-detail-section" class="hidden space-y-6">
+  <button id="back-to-classes" class="text-sm text-teal-400 hover:text-white mb-4 flex items-center transition"><i data-lucide="arrow-left" class="mr-1"></i> Back to My Classes</button>
+
+  <h2 id="class-detail-title" class="text-3xl font-bold text-white border-b border-slate-700 pb-3"></h2>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div class="bg-slate-800 p-6 rounded-xl border border-slate-700 shadow-lg hover:border-teal-500/50 transition">
+      <h3 class="text-xl font-semibold text-teal-400 mb-2">Attendance</h3>
+      <p class="text-slate-400 text-xs mb-3">Mark daily attendance</p>
+      <button id="take-attendance-btn" class="w-full py-2 bg-teal-600 hover:bg-teal-700 rounded text-white font-semibold transition shadow-md">Start Session</button>
+    </div>
+
+    <div class="bg-slate-800 p-6 rounded-xl border border-slate-700 shadow-lg hover:border-blue-500/50 transition">
+      <h3 class="text-xl font-semibold text-blue-400 mb-2">Metrics</h3>
+      <p class="text-slate-400 text-xs mb-3">Graphs & Analytics</p>
+      <button id="view-dashboard-btn" class="w-full py-2 bg-blue-600 hover:bg-blue-700 rounded text-white font-semibold transition shadow-md">View Dashboard</button>
+    </div>
+
+    <div class="bg-slate-800 p-6 rounded-xl border border-slate-700 shadow-lg hover:border-amber-500/50 transition">
+      <h3 class="text-xl font-semibold text-amber-400 mb-2">Reports</h3>
+      <p class="text-slate-400 text-xs mb-3">Download Excel/CSV</p>
+      <button id="download-data-btn" class="w-full py-2 bg-amber-600 hover:bg-amber-700 rounded text-white font-semibold transition shadow-md">Download Data</button>
+    </div>
+
+    <div class="bg-slate-800 p-6 rounded-xl border border-slate-700 shadow-lg hover:border-red-500/50 transition relative overflow-hidden group">
+      <div class="absolute inset-0 bg-red-900/10 group-hover:bg-red-900/20 transition"></div>
+      <div class="relative z-10">
+        <h3 class="text-xl font-semibold text-red-400 mb-2">Defaulters</h3>
+        <p class="text-slate-400 text-xs mb-3">Identify &lt;75% Attendance</p>
+        <button id="view-defaulters-btn" class="w-full py-2 bg-red-600 hover:bg-red-700 rounded text-white font-semibold transition shadow-md flex items-center justify-center"><i data-lucide="alert-triangle" class="w-4 h-4 mr-2"></i> View List</button>
+      </div>
+    </div>
+
+    <div class="bg-slate-800 p-6 rounded-xl border border-slate-700 shadow-lg hover:border-purple-500/50 transition">
+      <h3 class="text-xl font-semibold text-purple-400 mb-2">Students</h3>
+      <p class="text-slate-400 text-xs mb-3">Edit Names / View Profiles</p>
+      <button id="manage-students-btn" class="w-full py-2 bg-purple-600 hover:bg-purple-700 rounded text-white font-semibold transition shadow-md">Manage Roster</button>
+    </div>
+  </div>
+
+  <div class="mt-8">
+    <h3 class="text-xl font-semibold text-white mb-4">Classroom Tools</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 shadow-lg hover:border-pink-500/50 transition relative overflow-hidden group">
+        <div class="absolute inset-0 bg-pink-900/10 group-hover:bg-pink-900/20 transition"></div>
+        <div class="relative z-10 flex justify-between items-center gap-4">
+          <div>
+            <h3 class="text-lg font-semibold text-pink-400">Cold Call</h3>
+            <p class="text-slate-400 text-xs">Pick a random student</p>
+          </div>
+          <button id="cold-call-btn" class="bg-pink-600 hover:bg-pink-700 text-white px-4 py-2 rounded-lg font-semibold transition shadow-md flex items-center whitespace-nowrap"><i data-lucide="dices" class="w-4 h-4 mr-2"></i> Spin</button>
+        </div>
+      </div>
+
+      <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 shadow-lg hover:border-yellow-500/50 transition relative overflow-hidden group">
+        <div class="absolute inset-0 bg-yellow-900/10 group-hover:bg-yellow-900/20 transition"></div>
+        <div class="relative z-10 flex justify-between items-center gap-4">
+          <div>
+            <h3 class="text-lg font-semibold text-yellow-400">Leaderboard</h3>
+            <p class="text-slate-400 text-xs">Top Students</p>
+          </div>
+          <button id="view-leaderboard-btn" class="bg-yellow-600 hover:bg-yellow-700 text-white px-4 py-2 rounded-lg font-semibold transition shadow-md flex items-center whitespace-nowrap"><i data-lucide="trophy" class="w-4 h-4 mr-2"></i> View</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-8 border-t border-slate-700 pt-6">
+    <h3 class="text-xl font-semibold text-white mb-4 flex items-center"><i data-lucide="settings" class="w-5 h-5 mr-2 text-slate-400"></i> Class Administration</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="bg-indigo-900/20 border border-indigo-500/30 p-4 rounded-xl flex justify-between items-center hover:bg-indigo-900/30 transition">
+        <div>
+          <p class="text-indigo-300 font-medium">Duplicate Class</p>
+          <p class="text-xs text-slate-400">Copy roster to new subject.</p>
+        </div>
+        <button id="duplicate-class-btn" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg transition text-sm font-medium shadow-lg">Duplicate</button>
+      </div>
+      <div class="bg-red-900/20 border border-red-900/30 p-4 rounded-xl flex justify-between items-center hover:bg-red-900/30 transition">
+        <div>
+          <p class="text-red-300 font-medium">Delete Class</p>
+          <p class="text-xs text-slate-400">Permanently remove class data.</p>
+        </div>
+        <button id="delete-class-btn" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition text-sm font-medium shadow-lg">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-8">
+    <h3 class="text-xl font-semibold text-white mb-4">Attendance History</h3>
+    <div id="attendance-history-view" class="space-y-3"></div>
+  </div>
+</section>

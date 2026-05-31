@@ -1,0 +1,33 @@
+<div id="modal-assign-course" class="fixed inset-0 bg-slate-900/95 backdrop-blur-sm hidden items-center justify-center z-[80]">
+      <div class="bg-slate-800 w-full max-w-md p-8 rounded-2xl border border-slate-700 shadow-2xl relative">
+        <button onclick="document.getElementById('modal-assign-course').classList.add('hidden')" class="absolute top-4 right-4 text-slate-500 hover:text-white"><i data-lucide="x"></i></button>
+
+        <div class="text-center mb-6">
+          <h3 class="text-xl font-bold text-white">Assign Subject to Class</h3>
+          <p class="text-sm text-slate-400 mt-1" id="assign-class-name-disp">Target Class</p>
+        </div>
+
+        <div class="space-y-4">
+          <div>
+            <label class="text-xs text-slate-500 uppercase font-bold ml-1">Select Subject</label>
+            <select id="assign-subject-select" class="w-full bg-slate-900 border border-slate-600 text-white rounded-lg p-3 mt-1 focus:border-teal-500 outline-none">
+              <option value="">Loading subjects...</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="text-xs text-slate-500 uppercase font-bold ml-1">Select Faculty</label>
+            <div id="assign-faculty-container"></div>
+            <p class="text-[10px] text-slate-500 mt-1 text-right">Search & Select</p>
+          </div>
+          <p class="text-[10px] text-slate-500 mt-1 text-right">Includes faculty from all departments</p>
+
+          <div>
+            <label class="text-xs text-slate-500 uppercase font-bold ml-1">Total Hours</label>
+            <input type="number" id="assign-total-hours" value="45" class="w-full bg-slate-900 border border-slate-600 text-white rounded-lg p-3 mt-1 focus:border-teal-500 outline-none" />
+          </div>
+
+          <button id="btn-assign-confirm" onclick="resourceMgr.submitAssignment()" class="w-full bg-teal-600 hover:bg-teal-500 text-white py-3 rounded-xl font-bold shadow-lg mt-2 transition hover:-translate-y-0.5">Confirm Assignment</button>
+        </div>
+      </div>
+    </div>

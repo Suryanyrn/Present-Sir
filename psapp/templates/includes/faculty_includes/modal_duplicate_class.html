@@ -1,0 +1,44 @@
+<div id="duplicate-class-modal" class="form-modal fixed inset-0 bg-slate-900/90 backdrop-blur-sm flex items-center justify-center p-4 z-50 hidden">
+  <div class="bg-slate-800 rounded-xl shadow-2xl w-full max-w-lg p-6 border border-slate-700">
+    <div class="flex items-center gap-3 mb-2">
+      <div class="p-2 bg-indigo-500/20 rounded-lg text-indigo-400">
+        <i data-lucide="copy" class="w-5 h-5"></i>
+      </div>
+      <h2 class="text-2xl font-bold text-white">Duplicate Class</h2>
+    </div>
+
+    <div class="bg-indigo-900/20 border border-indigo-500/30 rounded-lg p-3 mb-6">
+      <p class="text-sm text-indigo-200">
+        This will create a <span class="font-bold text-white">Personal Copy</span> of the student roster from <span id="source-class-name" class="text-white font-bold"></span>.
+      </p>
+      <p class="text-xs text-indigo-300/60 mt-1">Changes to students in the new class will not affect the original Admin Assigned class.</p>
+    </div>
+
+    <form id="duplicate-class-form" class="space-y-4">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="space-y-2">
+          <label class="block text-sm font-medium text-slate-300">New Class Name</label>
+          <input type="text" id="dup-class-name" required class="w-full px-4 py-2 bg-slate-700 text-white border border-slate-700 rounded-lg focus:border-indigo-500 outline-none" placeholder="e.g. B.Tech CS 2024" />
+        </div>
+        <div class="space-y-2">
+          <label class="block text-sm font-medium text-slate-300">New Subject Name</label>
+          <input type="text" id="dup-subject-name" required class="w-full px-4 py-2 bg-slate-700 text-white border border-slate-700 rounded-lg focus:border-indigo-500 outline-none" placeholder="e.g. DBMS" />
+        </div>
+      </div>
+      <div class="grid grid-cols-2 gap-4">
+        <div class="space-y-2">
+          <label class="block text-sm font-medium text-slate-300">Subject Code</label>
+          <input type="text" id="dup-subject-code" required class="w-full px-4 py-2 bg-slate-700 text-white border border-slate-700 rounded-lg focus:border-indigo-500 outline-none" placeholder="e.g. CS304" />
+        </div>
+        <div class="space-y-2">
+          <label class="block text-sm font-medium text-slate-300">Total Hours</label>
+          <input type="number" id="dup-total-hours" required min="1" value="45" class="w-full px-4 py-2 bg-slate-700 text-white border border-slate-700 rounded-lg focus:border-indigo-500 outline-none" />
+        </div>
+      </div>
+      <div class="flex justify-end space-x-4 pt-4">
+        <button type="button" id="cancel-duplicate" class="py-2 px-4 text-sm font-semibold rounded-lg text-slate-400 hover:text-white transition">Cancel</button>
+        <button type="submit" class="py-2 px-4 text-sm font-semibold rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white transition shadow-lg">Create Copy</button>
+      </div>
+    </form>
+  </div>
+</div>

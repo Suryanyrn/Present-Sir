@@ -1,0 +1,63 @@
+<div id="student-profile-modal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md flex items-center justify-center p-4 z-[90] hidden">
+      <div class="bg-slate-900 rounded-2xl shadow-2xl w-full max-w-4xl border border-slate-700 relative flex flex-col max-h-[90vh] overflow-hidden">
+        <div class="p-6 border-b border-slate-700 flex justify-between items-start bg-slate-800/50">
+          <div class="flex items-center gap-4">
+            <div class="w-16 h-16 bg-slate-700 rounded-full flex items-center justify-center text-2xl font-bold text-white shadow-inner border-2 border-slate-600" id="profile-pic-placeholder">
+              <span id="profile-initials">--</span>
+            </div>
+            <div>
+              <h2 id="profile-name" class="text-2xl font-bold text-white leading-tight">Student Name</h2>
+              <p class="text-teal-400 font-mono text-sm mt-1" id="profile-reg">REG12345</p>
+              <p id="profile-class" class="text-xs text-slate-400">Class Name</p>
+            </div>
+          </div>
+          <div class="flex flex-col items-end gap-2">
+            <button onclick="document.getElementById('student-profile-modal').classList.add('hidden')" class="text-slate-400 hover:text-white bg-slate-800 hover:bg-slate-700 p-2 rounded-lg transition"><i data-lucide="x" class="w-6 h-6"></i></button>
+            <span id="profile-status-badge" class="px-3 py-1 rounded text-xs font-bold bg-slate-800 text-slate-500">Status</span>
+          </div>
+        </div>
+
+        <div class="overflow-y-auto p-6 custom-scroll">
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div class="space-y-4">
+              <div class="bg-slate-800/50 p-6 rounded-xl border border-slate-700 text-center">
+                <p class="text-xs text-slate-400 uppercase tracking-widest font-bold mb-1">Overall Attendance</p>
+                <p id="profile-percent" class="text-5xl font-bold text-white mb-2">0%</p>
+                <p class="text-xs text-slate-500">
+                  Total Sessions: <span id="profile-total" class="text-slate-300">0</span>
+                </p>
+              </div>
+
+              <div class="grid grid-cols-3 gap-2">
+                <div class="bg-green-900/20 p-3 rounded-lg text-center border border-green-500/20">
+                  <p class="text-[10px] text-green-400 uppercase font-bold">Present</p>
+                  <p id="profile-present" class="text-xl font-bold text-green-400">0</p>
+                </div>
+                <div class="bg-blue-900/20 p-3 rounded-lg text-center border border-blue-500/20">
+                  <p class="text-[10px] text-blue-400 uppercase font-bold">On Duty</p>
+                  <p id="profile-od" class="text-xl font-bold text-blue-400">0</p>
+                </div>
+                <div class="bg-red-900/20 p-3 rounded-lg text-center border border-red-500/20">
+                  <p class="text-[10px] text-red-400 uppercase font-bold">Absent</p>
+                  <p id="profile-absent" class="text-xl font-bold text-red-400">0</p>
+                </div>
+              </div>
+
+              <div class="bg-slate-800 p-4 rounded-xl border border-slate-700">
+                <h3 class="text-sm font-bold text-white mb-2 flex items-center gap-2"><i data-lucide="calculator" class="w-4 h-4 text-teal-400"></i> Calculator</h3>
+                <div id="skip-calc-result" class="text-sm text-slate-300 leading-relaxed bg-slate-950/50 p-3 rounded-lg border border-slate-700/50">Loading...</div>
+              </div>
+            </div>
+
+            <div class="lg:col-span-2 flex flex-col">
+              <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700 flex-1 min-h-[300px] flex flex-col">
+                <h3 class="text-sm font-bold text-slate-300 mb-4">Subject-wise Breakdown</h3>
+                <div class="relative flex-1 w-full">
+                  <canvas id="studentCourseBar"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>

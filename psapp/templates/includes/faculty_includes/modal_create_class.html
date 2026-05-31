@@ -1,0 +1,43 @@
+<div id="create-class-modal" class="form-modal fixed inset-0 bg-slate-900/90 backdrop-blur-sm flex items-center justify-center p-4 z-50 hidden">
+  <div class="bg-slate-800 rounded-xl shadow-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto p-6 relative border border-slate-700">
+    <div class="bg-purple-900/30 border border-purple-500/30 rounded-lg p-3 mb-6 flex items-start gap-3">
+      <i data-lucide="shield" class="text-purple-400 w-5 h-5 shrink-0 mt-0.5"></i>
+      <div>
+        <h4 class="text-sm font-bold text-purple-300">Personal Class</h4>
+        <p class="text-xs text-purple-200/70 mt-0.5">Classes created here are managed solely by you. Attendance data is stored in your personal dashboard.</p>
+      </div>
+    </div>
+
+    <h2 class="text-2xl font-bold text-white mb-6 border-b border-slate-700 pb-2">Step 1: Class Details</h2>
+    <form id="create-class-form" class="space-y-4">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="space-y-2">
+          <label for="class-name" class="block text-sm font-medium text-slate-300">Class Name *</label>
+          <input type="text" id="class-name" required class="w-full px-4 py-2 bg-slate-700 text-white border border-slate-700 rounded-lg focus:border-teal-500 outline-none" placeholder="e.g. My Tutorial Batch" />
+        </div>
+        <div class="space-y-2">
+          <label for="subject-name" class="block text-sm font-medium text-slate-300">Subject Name *</label>
+          <input type="text" id="subject-name" required class="w-full px-4 py-2 bg-slate-700 text-white border border-slate-700 rounded-lg focus:border-teal-500 outline-none" placeholder="e.g. Engineering Physics" />
+        </div>
+      </div>
+      <div class="grid grid-cols-2 gap-4">
+        <div class="space-y-2">
+          <label for="subject-code" class="block text-sm font-medium text-slate-300">Subject Code</label>
+          <input type="text" id="subject-code" class="w-full px-4 py-2 bg-slate-700 text-white border border-slate-700 rounded-lg focus:border-teal-500 outline-none" placeholder="PHY101" />
+        </div>
+        <div class="space-y-2">
+          <label for="total-students" class="block text-sm font-medium text-slate-300">Total Students *</label>
+          <input type="number" id="total-students" required min="1" value="1" class="w-full px-4 py-2 bg-slate-700 text-white border border-slate-700 rounded-lg focus:border-teal-500 outline-none" />
+        </div>
+      </div>
+      <div class="space-y-2">
+        <label for="total-hours-input" class="block text-sm font-medium text-slate-300">Total Hours (Max possible classes)</label>
+        <input type="number" id="total-hours-input" required min="1" value="45" class="w-full px-4 py-2 bg-slate-700 text-white border border-slate-700 rounded-lg focus:border-teal-500 outline-none" />
+      </div>
+      <div class="flex justify-end space-x-4 pt-4">
+        <button type="button" id="cancel-create-class" class="py-2 px-4 text-sm font-semibold rounded-lg text-slate-400 hover:text-white transition">Cancel</button>
+        <button type="submit" id="next-step-btn" class="py-2 px-4 text-sm font-semibold rounded-lg bg-teal-600 hover:bg-teal-700 text-white transition">Next: Add Students</button>
+      </div>
+    </form>
+  </div>
+</div>

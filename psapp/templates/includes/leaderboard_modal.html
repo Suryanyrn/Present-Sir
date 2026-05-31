@@ -1,0 +1,13 @@
+<div id="leaderboard-modal" class="fixed inset-0 bg-slate-900/90 backdrop-blur-sm flex items-center justify-center p-4 z-[90] hidden">
+      <div class="bg-slate-800 rounded-xl shadow-2xl w-full max-w-md border border-yellow-500/30 relative overflow-hidden flex flex-col max-h-[85vh]">
+        <div class="absolute top-0 right-0 -mr-16 -mt-16 w-32 h-32 bg-yellow-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="text-center p-6 pb-4 shrink-0 z-10 bg-slate-800">
+          <h2 class="text-3xl font-bold text-yellow-400 font-['Great_Vibes'] tracking-widest">Class Leaderboard</h2>
+          <p class="text-slate-400 text-xs uppercase tracking-widest mt-1">All Students Ranked</p>
+        </div>
+        <div id="leaderboard-list" class="space-y-3 overflow-y-auto px-6 custom-scroll flex-1"></div>
+        <div class="p-6 pt-4 shrink-0 z-10 bg-slate-800 border-t border-slate-700/50 mt-2">
+          <button onclick="document.getElementById('leaderboard-modal').classList.add('hidden')" class="w-full py-2 bg-slate-700 hover:bg-slate-600 text-white rounded-lg transition shadow-lg">Close</button>
+        </div>
+      </div>
+    </div>

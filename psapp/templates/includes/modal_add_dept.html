@@ -1,0 +1,38 @@
+<div id="modal-add-dept" class="fixed inset-0 bg-slate-900/90 backdrop-blur-sm hidden items-center justify-center z-[60]">
+      <div class="bg-slate-800 p-8 rounded-2xl w-full max-w-sm border border-slate-700 shadow-2xl relative transition-all duration-300">
+        <button onclick="modals.close('modal-add-dept')" class="absolute top-4 right-4 text-slate-500 hover:text-white"><i data-lucide="x"></i></button>
+
+        <div class="text-center mb-6">
+          <div class="w-12 h-12 bg-teal-900/30 rounded-full flex items-center justify-center mx-auto mb-3 text-teal-400">
+            <i data-lucide="layers" class="w-6 h-6"></i>
+          </div>
+          <h3 class="text-xl font-bold text-white">Create Department</h3>
+        </div>
+
+        <div id="add-dept-step-1" class="space-y-4">
+          <div>
+            <label class="text-xs text-slate-400 uppercase font-bold ml-1">Department Name</label>
+            <input type="text" id="inp-dept-name" class="w-full bg-slate-900 border border-slate-600 text-white rounded-lg p-3 mt-1 focus:border-teal-500 outline-none" placeholder="e.g. Computer Science" />
+          </div>
+          <div>
+            <label class="text-xs text-slate-400 uppercase font-bold ml-1">Established Year</label>
+            <div class="relative">
+              <select id="inp-dept-year" class="w-full bg-slate-900 border border-slate-600 text-white rounded-lg p-3 mt-1 focus:border-teal-500 outline-none appearance-none cursor-pointer"></select>
+              <div class="absolute inset-y-0 right-0 flex items-center px-3 mt-1 pointer-events-none text-slate-400">
+                <i data-lucide="chevron-down" class="w-4 h-4"></i>
+              </div>
+            </div>
+          </div>
+          <button onclick="api.initiateAddDept()" id="btn-req-otp-dept" class="w-full bg-blue-600 hover:bg-blue-500 text-white py-3 rounded-xl font-bold shadow-lg transition transform active:scale-95 flex items-center justify-center gap-2"><span>Request OTP</span> <i data-lucide="shield-check" class="w-4 h-4"></i></button>
+        </div>
+
+        <div id="add-dept-step-2" class="hidden space-y-4 animate-fade-in">
+          <p class="text-sm text-green-400 text-center bg-green-900/20 p-2 rounded border border-green-900/50">OTP sent to Admin Email</p>
+          <div>
+            <input type="text" id="inp-dept-otp" class="w-full bg-slate-900 border border-teal-500/50 text-white text-center text-2xl tracking-widest rounded-lg p-3 outline-none focus:ring-2 focus:ring-teal-500" placeholder="XXXXXX" maxlength="6" />
+          </div>
+          <button onclick="api.verifyAndCreateDept()" id="btn-create-dept" class="w-full bg-teal-600 hover:bg-teal-500 text-white py-3 rounded-xl font-bold shadow-lg transition transform active:scale-95">Verify & Create</button>
+          <button onclick="api.resetAddDeptModal()" class="w-full text-slate-500 hover:text-white text-xs mt-2">Cancel / Back</button>
+        </div>
+      </div>
+    </div>
