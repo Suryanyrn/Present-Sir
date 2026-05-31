@@ -10,7 +10,8 @@ from datetime import datetime
 from psapp.models import NewFaculty, College, Department, Student
 from .utils import rate_limit, validate_email, validate_password, validate_name, sanitize_html_input
 from ..jwt_utils import create_access_token, create_refresh_token, refresh_access_token # relative import
-import random, time, json, logging, secrets, hmac, threading,re
+import random, time, json, logging, secrets, hmac, threading
+import re  
 from django.conf import settings
 
 logger = logging.getLogger(__name__)
