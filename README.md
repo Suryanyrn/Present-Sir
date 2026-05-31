@@ -260,7 +260,7 @@ git push origin feature-name
 
 # 👨‍💻 Developer
 
-**Surya N R**
+**Suryanarayanan R**
 
 Aspiring Software Engineer passionate about building impactful products, solving real-world problems, and continuously learning through development.
 
