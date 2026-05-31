@@ -29,7 +29,7 @@ if ENV_PATH.exists():
                 os.environ[key.strip()] = val.strip().strip("'\"")
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-zm$s5d&uh-*^35a$&2aer9r_yw(v2n5elyn)f)rq52=shn51p_')
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', 'True').lower() in ('true', '1', 't')
